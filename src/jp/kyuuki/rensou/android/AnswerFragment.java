@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -64,19 +65,23 @@ public class AnswerFragment extends Fragment {
         mAnswerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = RensouApi.getPostUrl();
-                mRequestQueue.add(new JsonObjectRequest(Method.POST, url, null,
+                String url = RensouApi.getGetUrlLast();
+                mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null,
                     new Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.v("HTTP", "body is " + response.toString());
+                            
+                            Intent intent = new Intent(getActivity(), PostResultActivity.class);
+                            startActivity(intent);
                         }
                     },
                     
                     new ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // TODO Auto-generated method stub
+                            Intent intent = new Intent(getActivity(), PostResultActivity.class);
+                            startActivity(intent);
                         }
                     }));
             }
