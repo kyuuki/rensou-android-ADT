@@ -1,7 +1,7 @@
 package jp.kyuuki.rensou.android.model;
 
 /**
- * ˜A‘zB
+ * é€£æƒ³ã€‚
  */
 public class Rensou {
     private long id;

@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import jp.kyuuki.rensou.android.model.Rensou;
 
 /**
- * ˜A‘z APIB
+ * é€£æƒ³ APIã€‚
  * 
- * - API d—l‚É‚©‚©‚í‚é•”•ª‚ğ‚±‚±‚ÉW–ñB
+ * - API ä»•æ§˜ã«ã‹ã‹ã‚ã‚‹éƒ¨åˆ†ã‚’ã“ã“ã«é›†ç´„ã€‚
  */
 public class RensouApi {
     // https://www.facebook.com/groups/428772910554185/permalink/428791710552305/
@@ -22,14 +22,14 @@ public class RensouApi {
         return BASE_URL + "/rensou.json";
     }
     
-    // API ‚Ì JSON d—l‚ÉˆË‘¶B
+    // API ã® JSON ä»•æ§˜ã«ä¾å­˜ã€‚
     public static Rensou json2Rensou(JSONObject o) {
         Rensou rensou = new Rensou();
         try {
             rensou.setId(o.getLong("id"));
             rensou.setKeyword(o.getString("keyword"));
         } catch (JSONException e) {
-            // TODO: JSON \•¶‰ğÍƒGƒ‰[ˆ—
+            // TODO: JSON æ§‹æ–‡è§£æã‚¨ãƒ©ãƒ¼å‡¦ç†
             e.printStackTrace();
             return null;
         }

@@ -34,7 +34,7 @@ public class AnswerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         
-        // ÅŒã‚Ì˜A‘zæ“¾
+        // æœ€å¾Œã®é€£æƒ³å–å¾—
         String url = RensouApi.getGetUrlLast();
         mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null, 
             new Listener<JSONObject>() {
@@ -43,7 +43,7 @@ public class AnswerFragment extends Fragment {
                     Log.v("HTTP", "body is " + response.toString());
                     Rensou rensou = RensouApi.json2Rensou(response);
                     
-                    // TODO: mLastKeywordText ‚ªì¬o—ˆ‚Ä‚¢‚È‚¢ƒpƒ^[ƒ“‚ª‚ ‚éH
+                    // TODO: mLastKeywordText ãŒä½œæˆå‡ºæ¥ã¦ã„ãªã„ãƒ‘ã‚¿ãƒ¼ãƒ³ãŒã‚ã‚‹ï¼Ÿ
                     mLastKeywordText.setText(rensou.getKeyword());
                 }
             },
