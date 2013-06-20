@@ -43,6 +43,8 @@
             android:background="#ffffff"
             android:ems="10"
             android:hint="連想されるものを入力"
+            android:inputType="text"
+            android:maxLines="1"
             android:padding="5dp"
             android:textSize="20sp" >
 
