@@ -1,11 +1,12 @@
 package jp.kyuuki.rensou.android;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.kyuuki.rensou.android.model.Rensou;
+import jp.kyuuki.rensou.android.model.RensouHistory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +32,20 @@ public class RensouListFragment extends Fragment {
             list = new ArrayList<Rensou>();
         }
         
-        RensouArrayAdapter adapter = new RensouArrayAdapter(getActivity(), R.layout.row_rensou);
-
+        // 連想履歴作成
+        // TODO: id を見てもうちょっと効率よく
+        List<RensouHistory> rensouHistoryArray = new ArrayList<RensouHistory>();
+        Rensou to = null;
         for (int i = 0, len = list.size(); i < len; i++) {
             Rensou r = (Rensou) list.get(i);
-            adapter.add(r);
+            if (to != null) {
+                RensouHistory rh = new RensouHistory(to, r);
+                rensouHistoryArray.add(rh);
+            }
+            to = r;
         }
+
+        RensouArrayAdapter adapter = new RensouArrayAdapter(getActivity(), R.layout.row_rensou, rensouHistoryArray);
 
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);

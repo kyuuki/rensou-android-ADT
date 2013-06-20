@@ -97,16 +97,15 @@ public class AnswerFragment extends Fragment {
                             
                             ArrayList<Rensou> list = new ArrayList<Rensou>();
                             for (int i = 0, len = response.length(); i < len; i++) {
-                                JSONObject o;
-                                Rensou r = new Rensou();
                                 try {
-                                    o = response.getJSONObject(i);
-                                    r.setKeyword(o.getString("keyword"));
+                                    JSONObject o = response.getJSONObject(i);
+                                    
+                                    Rensou r = RensouApi.json2Rensou(o);
+                                    list.add(r);
                                 } catch (JSONException e) {
-                                    // TODO 自動生成された catch ブロック
+                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
-                                list.add(r);
                             }
                             
                             Intent intent = new Intent(getActivity(), PostResultActivity.class);

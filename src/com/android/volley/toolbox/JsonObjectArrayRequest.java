@@ -51,8 +51,11 @@ public class JsonObjectArrayRequest extends JsonRequest<JSONArray> {
     @Override
     protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
         try {
+            System.out.println(response.headers);
+            System.out.println(HttpHeaderParser.parseCharset(response.headers));
             String jsonString =
-                new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                //new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                new String(response.data, "UTF-8");
             return Response.success(new JSONArray(jsonString),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {

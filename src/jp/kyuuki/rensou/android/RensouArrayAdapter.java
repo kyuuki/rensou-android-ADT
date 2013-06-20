@@ -1,8 +1,9 @@
 package jp.kyuuki.rensou.android;
 
 import java.util.Date;
+import java.util.List;
 
-import jp.kyuuki.rensou.android.model.Rensou;
+import jp.kyuuki.rensou.android.model.RensouHistory;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
+public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
     LayoutInflater mInflater;
     
-    public RensouArrayAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
+    public RensouArrayAdapter(Context context, int textViewResourceId, List<RensouHistory> list) {
+        super(context, textViewResourceId, list);
         // TODO Auto-generated constructor stub
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -26,15 +27,18 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
             view = mInflater.inflate(R.layout.row_rensou, null);
         }
         
-        Rensou rensou = getItem(position);
+        RensouHistory rensouHistory = getItem(position);
         
         TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
         TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeText);
         
         // View
-        rensouText.setText(rensou.getKeyword());
-        dateTimeText.setText(new Date().toString());
-        
+        if (rensouHistory.getRensou() != null) {
+            rensouText.setText(rensouHistory.getRensou().getKeyword());
+            if (rensouHistory.getRensou().getCreatedAt() != null) {
+                dateTimeText.setText(rensouHistory.getRensou().getCreatedAt().toString());
+            }
+        }
         return view;
     }
 }
