@@ -1,9 +1,11 @@
 package jp.kyuuki.rensou.android.model;
 
+import java.io.Serializable;
+
 /**
  * 連想。
  */
-public class Rensou {
+public class Rensou implements Serializable {
     private long id;
     private String keyword;
     private boolean favorite;

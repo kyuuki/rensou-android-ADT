@@ -1,8 +1,11 @@
 package jp.kyuuki.rensou.android;
 
+import java.util.ArrayList;
+
 import jp.kyuuki.rensou.android.model.Rensou;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,28 +22,19 @@ public class RensouListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_rensou_list, container, false);
 
+        // 引数処理
+        Bundle bundle = getArguments();
+        ArrayList<Rensou> list;
+        if (bundle != null) {
+            list = (ArrayList<Rensou>) bundle.getSerializable("list");
+        } else {
+            list = new ArrayList<Rensou>();
+        }
+        
         RensouArrayAdapter adapter = new RensouArrayAdapter(getActivity(), R.layout.row_rensou);
-        Rensou r;
 
-        for (int i = 0; i < 10; i++) {
-            r = new Rensou();
-            r.setKeyword("しりとり");
-            adapter.add(r);
-            
-            r = new Rensou();
-            r.setKeyword("りんご");
-            adapter.add(r);
-    
-            r = new Rensou();
-            r.setKeyword("ごりら");
-            adapter.add(r);
-    
-            r = new Rensou();
-            r.setKeyword("らっこ");
-            adapter.add(r);
-    
-            r = new Rensou();
-            r.setKeyword("こいし");
+        for (int i = 0, len = list.size(); i < len; i++) {
+            Rensou r = (Rensou) list.get(i);
             adapter.add(r);
         }
 
