@@ -8,13 +8,13 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:id="@+id/lastKeywordText"
+        android:id="@+id/latestKeywordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="読込中..."
+        android:text="@string/post_rensou_reading"
         android:textColor="#ff0000"
         android:textSize="24sp" />
 
@@ -23,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/linearLayout1"
-        android:layout_below="@+id/lastKeywordText"
-        android:text="といったら・・・？"
+        android:layout_below="@id/latestKeywordText"
+        android:text="@string/post_rensou_related"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -37,12 +37,12 @@
 
         <EditText
             android:id="@+id/postRensouEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#ffffff"
             android:ems="10"
-            android:hint="連想されるものを入力"
+            android:hint="@string/post_rensou_hist_input_rensou"
             android:inputType="text"
             android:maxLines="1"
             android:padding="5dp"
@@ -52,10 +52,10 @@
         </EditText>
 
         <Button
-            android:id="@+id/answerButton"
+            android:id="@+id/postButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="投稿"
+            android:text="@string/post_rensou_button_post"
             android:textColor="#ffffff" />
     </LinearLayout>
 

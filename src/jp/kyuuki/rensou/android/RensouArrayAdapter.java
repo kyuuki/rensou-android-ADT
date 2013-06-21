@@ -1,6 +1,5 @@
 package jp.kyuuki.rensou.android;
 
-import java.util.Date;
 import java.util.List;
 
 import jp.kyuuki.rensou.android.model.RensouHistory;

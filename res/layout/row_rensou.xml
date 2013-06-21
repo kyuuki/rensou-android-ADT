@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:textIsSelectable="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -21,5 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:textIsSelectable="true"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 </RelativeLayout>

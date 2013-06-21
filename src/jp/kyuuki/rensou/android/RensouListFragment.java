@@ -14,6 +14,9 @@ import android.widget.ListView;
 
 public class RensouListFragment extends Fragment {
 
+    // 引数のキー
+    public static final String BUNDLE_LIST = "list";
+    
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class RensouListFragment extends Fragment {
         Bundle bundle = getArguments();
         ArrayList<Rensou> list;
         if (bundle != null) {
-            list = (ArrayList<Rensou>) bundle.getSerializable("list");
+            list = (ArrayList<Rensou>) bundle.getSerializable(BUNDLE_LIST);
         } else {
             list = new ArrayList<Rensou>();
         }

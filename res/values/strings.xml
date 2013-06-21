@@ -2,7 +2,13 @@
 <resources>
 
     <string name="app_name">連想げーむ</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">設定</string>
     <string name="activity_result_title">これまでの連想</string>
+    
+    <!-- 連想投稿画面 -->
+    <string name="post_rensou_reading">読込中 &#8230;&#8230;&#8230;</string>
+    <string name="post_rensou_related">といったら・・・？</string>
+    <string name="post_rensou_hist_input_rensou">連想されるものを入力</string>
+    <string name="post_rensou_button_post">投稿</string>
     
 </resources>

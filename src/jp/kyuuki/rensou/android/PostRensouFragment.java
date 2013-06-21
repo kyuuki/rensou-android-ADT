@@ -6,7 +6,6 @@ import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.net.RensouApi;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.volley.Request.Method;
@@ -31,15 +30,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AnswerFragment extends Fragment {
+/*
+ * 連想投稿部品。
+ */
+public class PostRensouFragment extends Fragment {
     // Model
     private long mThemeId = -1;
 
     // View
-    private TextView mLastKeywordText;
+    private TextView mLatestKeywordText;
     private EditText mPostRensouEditText;
     private Button mAnswerButton;
 
+    // 通信
     private RequestQueue mRequestQueue;
 
     @Override
@@ -47,7 +50,7 @@ public class AnswerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         
-        // 最後の連想取得
+        // 最新の連想取得
         String url = RensouApi.getGetUrlLast();
         mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null, 
             new Listener<JSONObject>() {
@@ -58,7 +61,7 @@ public class AnswerFragment extends Fragment {
                     
                     // TODO: mLastKeywordText が作成出来ていないパターンがある？
                     mThemeId = rensou.getId();
-                    mLastKeywordText.setText(rensou.getKeyword());
+                    mLatestKeywordText.setText(rensou.getKeyword());
                 }
             },
                 
@@ -72,48 +75,31 @@ public class AnswerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_answer, container, false);
-        mLastKeywordText = (TextView) v.findViewById(R.id.lastKeywordText);
+        View v = inflater.inflate(R.layout.fragment_post_rensou, container, false);
+
+        mLatestKeywordText = (TextView) v.findViewById(R.id.latestKeywordText);
         mPostRensouEditText = (EditText) v.findViewById(R.id.postRensouEditText);
-        mAnswerButton = (Button) v.findViewById(R.id.answerButton);
+        mAnswerButton = (Button) v.findViewById(R.id.postButton);
         mAnswerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = RensouApi.getPostUrl();
-                JSONObject json = new JSONObject();
-                try {
-                    json.put("theme_id", mThemeId);
-                    json.put("keyword", mPostRensouEditText.getText());
-                } catch (JSONException e) {
-                    // TODO 自動生成された catch ブロック
-                    e.printStackTrace();
-                }
+                JSONObject json = RensouApi.makeRensouJson(mThemeId, mPostRensouEditText.getText().toString());
 
                 mRequestQueue.add(new JsonObjectArrayRequest(Method.POST, url, json,
                     new Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
                             Log.v("HTTP", "body is " + response);
-                            
-                            ArrayList<Rensou> list = new ArrayList<Rensou>();
-                            for (int i = 0, len = response.length(); i < len; i++) {
-                                try {
-                                    JSONObject o = response.getJSONObject(i);
-                                    
-                                    Rensou r = RensouApi.json2Rensou(o);
-                                    list.add(r);
-                                } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                            }
-                            
+
+                            ArrayList<Rensou> list = RensouApi.json2Rensous(response);
+
                             Intent intent = new Intent(getActivity(), PostResultActivity.class);
                             intent.putExtra("list", list);
                             startActivity(intent);
                         }
                     },
-                    
+
                     new ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
