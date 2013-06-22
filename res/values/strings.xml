@@ -10,5 +10,8 @@
     <string name="post_rensou_related">といったら・・・？</string>
     <string name="post_rensou_hist_input_rensou">連想されるものを入力</string>
     <string name="post_rensou_button_post">投稿</string>
-    
+
+    <!-- 連想一覧画面 -->
+    <string name="list_rensou_related">といえば</string>
+
 </resources>

@@ -7,14 +7,39 @@
     android:paddingRight="16dp"
     android:paddingTop="4dp" >
 
-    <TextView
-        android:id="@+id/rensouText"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:textIsSelectable="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentRight="false"
+        android:layout_centerVertical="true" >
+
+        <TextView
+            android:id="@+id/sourceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ff0000"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="@string/list_rensou_related"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/rensouText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ff0000"
+            android:textIsSelectable="true" />
+        
+    </LinearLayout>
 
     <TextView
         android:id="@+id/dateTimeText"
@@ -24,4 +49,5 @@
         android:layout_alignParentRight="true"
         android:textIsSelectable="true"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

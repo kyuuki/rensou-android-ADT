@@ -1,5 +1,6 @@
 package jp.kyuuki.rensou.android;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import jp.kyuuki.rensou.android.model.RensouHistory;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
     LayoutInflater mInflater;
+    
+    // 日付のフォーマット
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
     public RensouArrayAdapter(Context context, int textViewResourceId, List<RensouHistory> list) {
         super(context, textViewResourceId, list);
@@ -28,15 +32,17 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
         
         RensouHistory rensouHistory = getItem(position);
         
-        TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
+        TextView sourceText = (TextView) view.findViewById(R.id.sourceText);
         TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeText);
+        TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
         
         // View
         if (rensouHistory.getRensou() != null) {
-            rensouText.setText(rensouHistory.getRensou().getKeyword());
+            sourceText.setText(rensouHistory.getSource().getKeyword());
             if (rensouHistory.getRensou().getCreatedAt() != null) {
-                dateTimeText.setText(rensouHistory.getRensou().getCreatedAt().toString());
+                dateTimeText.setText(sdf.format(rensouHistory.getRensou().getCreatedAt()));
             }
+            rensouText.setText(rensouHistory.getRensou().getKeyword());
         }
         return view;
     }
