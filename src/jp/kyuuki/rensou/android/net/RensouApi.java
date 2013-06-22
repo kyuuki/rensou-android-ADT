@@ -20,11 +20,11 @@ import jp.kyuuki.rensou.android.model.Rensou;
  * - 通信ライブラリには依存したくない。
  */
 public class RensouApi {
-    // https://www.facebook.com/groups/428772910554185/permalink/428791710552305/
-    public static String BASE_URL = "http://u1fukui.com:4567";
+    // https://www.facebook.com/groups/428772910554185/permalink/430164457081697/
+    public static String BASE_URL = "http://api.u1fukui.com/rensou";
     
     public static String getGetUrlLast() {
-        return BASE_URL + "/rensous.json";
+        return BASE_URL + "/rensou.json";
     }
 
     public static String getPostUrl() {
