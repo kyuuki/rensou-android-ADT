@@ -49,28 +49,6 @@ public class PostRensouFragment extends Fragment {
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        
-        // 最新の連想取得
-        String url = RensouApi.getGetUrlLast();
-        mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null, 
-            new Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.v("HTTP", "body is " + response.toString());
-                    Rensou rensou = RensouApi.json2Rensou(response);
-                    
-                    // TODO: mLastKeywordText が作成出来ていないパターンがある？
-                    mThemeId = rensou.getId();
-                    mLatestKeywordText.setText(rensou.getKeyword());
-                }
-            },
-                
-            new ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // TODO Auto-generated method stub
-                }
-            }));
     }
 
     @Override
@@ -111,5 +89,35 @@ public class PostRensouFragment extends Fragment {
         });
         
         return v;
+    }
+    
+    @Override
+    public void onResume () {
+        super.onResume();
+
+        // 前回入力した投稿削除
+        mPostRensouEditText.setText("");
+
+        // 最新の連想取得
+        String url = RensouApi.getGetUrlLast();
+        mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null, 
+            new Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.v("HTTP", "body is " + response.toString());
+                    Rensou rensou = RensouApi.json2Rensou(response);
+                    
+                    // TODO: mLastKeywordText が作成出来ていないパターンがある？
+                    mThemeId = rensou.getId();
+                    mLatestKeywordText.setText(rensou.getKeyword());
+                }
+            },
+                
+            new ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // TODO Auto-generated method stub
+                }
+            }));
     }
 }
