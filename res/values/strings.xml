@@ -18,4 +18,6 @@
     <!-- 連想げーむについて -->
     <string name="version">バージョン</string>
 
+    <!-- 共通エラーメッセージ -->
+    <string name="error_communication">通信エラー</string>
 </resources>

@@ -81,7 +81,8 @@ public class PostRensouFragment extends Fragment {
                     new ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
+                            // TODO: 通信エラーの時はどうする？
                         }
                     }
                 ));
@@ -116,7 +117,8 @@ public class PostRensouFragment extends Fragment {
             new ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    // TODO Auto-generated method stub
+                    Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
+                    // TODO: 通信エラーの時はどうする？
                 }
             }));
     }
