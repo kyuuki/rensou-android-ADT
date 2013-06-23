@@ -2,19 +2,17 @@ package jp.kyuuki.rensou.android;
 
 import java.util.ArrayList;
 
+import jp.kyuuki.rensou.android.model.Rensou;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
-import jp.kyuuki.rensou.android.model.Rensou;
-
 /**
  * 投稿結果画面。
  */
-public class PostResultActivity extends FragmentActivity {
+public class PostResultActivity extends CommonActivity {
     
     // 引数のキー
     public static final String INTENT_EXTRA_LIST = "list";
@@ -44,7 +42,7 @@ public class PostResultActivity extends FragmentActivity {
         t.replace(R.id.rensouListFragment, fragment);
         t.commit();
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
