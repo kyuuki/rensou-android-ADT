@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import jp.kyuuki.rensou.android.model.RensouHistory;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,8 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
     LayoutInflater mInflater;
     
     // 日付のフォーマット
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @SuppressLint("SimpleDateFormat")
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  // TODO: 多言語化
     
     public RensouArrayAdapter(Context context, int textViewResourceId, List<RensouHistory> list) {
         super(context, textViewResourceId, list);

@@ -30,7 +30,7 @@ public class RensouListFragment extends Fragment {
         Bundle bundle = getArguments();
         ArrayList<Rensou> list;
         if (bundle != null) {
-            list = (ArrayList<Rensou>) bundle.getSerializable(BUNDLE_LIST);
+            list = getSerializableBundleList(bundle);
         } else {
             list = new ArrayList<Rensou>();
         }
@@ -54,5 +54,10 @@ public class RensouListFragment extends Fragment {
         listView.setAdapter(adapter);
 
         return v;
+    }
+
+    @SuppressWarnings("unchecked")
+    private ArrayList<Rensou> getSerializableBundleList(Bundle bundle) {
+        return (ArrayList<Rensou>) bundle.getSerializable(BUNDLE_LIST);
     }
 }
