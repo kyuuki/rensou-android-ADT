@@ -44,6 +44,7 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
             }
             rensouText.setText(rensouHistory.getRensou().getKeyword());
         }
+
         return view;
     }
 }

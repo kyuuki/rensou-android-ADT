@@ -17,4 +17,14 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="NormalActivityTheme" parent="AppTheme">
+      <item name="android:windowAnimationStyle">@style/AnimationRight.Activity</item>
+    </style>
+    
+    <style name="AnimationRight.Activity" parent="android:Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_right_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_right_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_right_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_right_close_exit</item>
+    </style>
 </resources>

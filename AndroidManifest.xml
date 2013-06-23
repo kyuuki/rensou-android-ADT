@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="jp.kyuuki.rensou.android.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/NormalActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,7 +25,8 @@
         </activity>
         <activity
             android:name="jp.kyuuki.rensou.android.PostResultActivity"
-            android:label="@string/activity_result_title">
+            android:label="@string/activity_result_title"
+            android:theme="@style/NormalActivityTheme">
         </activity>
     </application>
 
