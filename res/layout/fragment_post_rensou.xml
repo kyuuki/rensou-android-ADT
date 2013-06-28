@@ -45,8 +45,11 @@
             android:hint="@string/post_rensou_hist_input_rensou"
             android:inputType="text"
             android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:padding="5dp"
             android:textSize="20sp" >
+            <!-- ヒントが複数行になる対策 http://inujirushi123.blog.fc2.com/blog-date-20130610.html -->
 
             <requestFocus />
         </EditText>
