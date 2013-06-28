@@ -39,7 +39,7 @@ public class PostResultActivity extends CommonActivity {
         bundle.putSerializable("list", list);
         fragment.setArguments(bundle);
 
-        t.replace(R.id.rensouListFragment, fragment);
+        t.replace(R.id.root, fragment);
         t.commit();
     }
     
