@@ -52,6 +52,7 @@ public class RensouListFragment extends Fragment {
 
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        listView.setScrollingCacheEnabled(false);  // Xperia ray などでスクロール時に背景が白くなるのに対処
 
         return v;
     }
