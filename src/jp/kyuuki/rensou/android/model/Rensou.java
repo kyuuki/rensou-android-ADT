@@ -3,6 +3,8 @@ package jp.kyuuki.rensou.android.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import jp.kyuuki.rensou.android.common.Utils;
+
 /**
  * 連想。
  */
@@ -44,5 +46,20 @@ public class Rensou implements Serializable {
     }
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    // 入力チェック
+    // null 不可
+    public static boolean validateKeyword(String keyword) {
+        if (Utils.isForbiddenOnlySpace(keyword)) {
+            return false;
+        }
+        
+        int length = keyword.length();
+        if (length == 0 || length > 13) {
+            return false;
+        }
+        
+        return true;
     }
 }

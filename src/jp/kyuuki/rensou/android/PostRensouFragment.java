@@ -61,8 +61,15 @@ public class PostRensouFragment extends Fragment {
         mAnswerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 入力チェック
+                String keyword = mPostRensouEditText.getText().toString();
+                if (Rensou.validateKeyword(keyword) == false) {
+                    Toast.makeText(getActivity(), getString(R.string.post_rensou_error_validate_keyword), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                
                 String url = RensouApi.getPostUrl();
-                JSONObject json = RensouApi.makeRensouJson(mThemeId, mPostRensouEditText.getText().toString());
+                JSONObject json = RensouApi.makeRensouJson(mThemeId, keyword);
 
                 mRequestQueue.add(new JsonObjectArrayRequest(Method.POST, url, json,
                     new Listener<JSONArray>() {
