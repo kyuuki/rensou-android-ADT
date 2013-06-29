@@ -60,7 +60,7 @@
 
         <Button
             android:id="@+id/postButton"
-            style="@style/ClassicalTheme.PostButtonStyle"
+            style="@style/U1Theme.PostButtonStyle"
             android:layout_marginLeft="5dp" />
 
     </LinearLayout>

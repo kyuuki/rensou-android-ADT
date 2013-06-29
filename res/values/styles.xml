@@ -33,7 +33,16 @@
         <item name="android:background">@drawable/button_submit</item>
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">40dp</item>
-        </style>
+    </style>
+    <style name="U1Theme.RowRensouLayoutStyle">
+        <item name="android:background">@drawable/rensou_cell_bg</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:minHeight">120dp</item>
+        <item name="android:paddingLeft">55dp</item>
+        <item name="android:paddingRight">55dp</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
+    </style>
     
     <!-- Classical theme -->
     <style name="ClassicalTheme" parent="AppTheme">
@@ -47,7 +56,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-
+    <style name="ClassicalTheme.RowRensouLayoutStyle">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:minHeight">80dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
 
     <style name="NormalActivityTheme" parent="AppTheme">
         <item name="android:windowAnimationStyle">@style/AnimationRight.Activity</item>
