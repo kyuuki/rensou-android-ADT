@@ -1,5 +1,5 @@
-‚±‚±‚É iOS —pƒIƒŠƒWƒiƒ‹‚Ì‘fÞ‚ð’u‚­B
+ã“ã“ã« iOS ç”¨ã‚ªãƒªã‚¸ãƒŠãƒ«ã®ç´ æã‚’ç½®ãã€‚
 
 rensou_cell_bg.png
 rensou_cell_bg2.png
-  ‰¡•‚ð 320px ¨ 480px ‚ÉŠg‘åŒã 9-patch ‚ð“K—pB
+  æ¨ªå¹…ã‚’ 320px â†’ 480px ã«æ‹¡å¤§å¾Œ 9-patch ã‚’é©ç”¨ã€‚
