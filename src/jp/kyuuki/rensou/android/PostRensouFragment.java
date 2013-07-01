@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,8 @@ public class PostRensouFragment extends Fragment {
     private TextView mLatestKeywordText;
     private EditText mPostRensouEditText;
     private Button mAnswerButton;
+
+    ProgressDialog progressDialog;  // 通信中ダイアログ
 
     // 通信
     private RequestQueue mRequestQueue;
@@ -70,11 +73,19 @@ public class PostRensouFragment extends Fragment {
                 
                 String url = RensouApi.getPostUrl();
                 JSONObject json = RensouApi.makeRensouJson(mThemeId, keyword);
+                
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setMessage(getString(R.string.post_rensou_posting));
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
 
                 mRequestQueue.add(new JsonObjectArrayRequest(Method.POST, url, json,
                     new Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
+                            progressDialog.dismiss();
+                            progressDialog = null;
+
                             Log.v("HTTP", "body is " + response);
 
                             ArrayList<Rensou> list = RensouApi.json2Rensous(response);
@@ -88,6 +99,9 @@ public class PostRensouFragment extends Fragment {
                     new ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            progressDialog.dismiss();
+                            progressDialog = null;
+                            
                             if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
                                 // 投稿が被った可能性が高い。
                                 Toast.makeText(getActivity(), getString(R.string.post_rensou_error_transaction), Toast.LENGTH_LONG).show();
@@ -118,11 +132,19 @@ public class PostRensouFragment extends Fragment {
     
     // 最後の連想取得
     private void getLatestRensou() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getString(R.string.post_rensou_reading));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
         String url = RensouApi.getGetUrlLast();
         mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null, 
             new Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    progressDialog.dismiss();
+                    progressDialog = null;
+
                     Log.v("HTTP", "body is " + response.toString());
                     Rensou rensou = RensouApi.json2Rensou(response);
                     
@@ -135,6 +157,9 @@ public class PostRensouFragment extends Fragment {
             new ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    progressDialog.dismiss();
+                    progressDialog = null;
+
                     Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
                     // TODO: 通信エラーの時はどうする？
                 }

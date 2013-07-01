@@ -8,6 +8,7 @@
 
     <!-- 連想投稿画面 -->
     <string name="post_rensou_reading">読込中 &#8230;&#8230;&#8230;</string>
+    <string name="post_rensou_posting">投稿中 &#8230;&#8230;&#8230;</string>
     <string name="post_rensou_related">といったら・・・？</string>
     <string name="post_rensou_hist_input_rensou">連想されるものを入力</string>
     <string name="post_rensou_button_post">投稿</string>
