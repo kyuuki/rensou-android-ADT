@@ -40,12 +40,12 @@
     </style>
     <style name="U1Theme.RowRensouLayoutStyle">
         <item name="android:background">@drawable/rensou_cell_bg</item>
-        <item name="android:layout_height">120dp</item>
-        <item name="android:minHeight">120dp</item>
-        <item name="android:paddingLeft">55dp</item>
-        <item name="android:paddingRight">55dp</item>
-        <item name="android:paddingTop">30dp</item>
-        <item name="android:paddingBottom">30dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">40dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
     </style>
     
     <!-- Classical theme -->

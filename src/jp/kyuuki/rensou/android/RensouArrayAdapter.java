@@ -61,17 +61,17 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
 //            int bottom = rowPaddingBottom > 0 ? rowPaddingBottom : rowRensouLayout.getPaddingBottom();
             // TODO: ↑なぜか値が一定しない。
             float density = getContext().getResources().getDisplayMetrics().density;
-            int left   = (int) (density * 60);
-            int top    = (int) (density * 30);
-            int right  = (int) (density * 60);
-            int bottom = (int) (density * 30);
+            int left   = (int) (density * 30);
+            int top    = (int) (density * 20);
+            int right  = (int) (density * 40);
+            int bottom = (int) (density * 20);
             if (position % 2 == 0) {
                 rowRensouLayout.setBackgroundResource(R.drawable.rensou_cell_bg);
                 rowRensouLayout.setPadding(left, top, right, bottom);
             } else {
                 rowRensouLayout.setBackgroundResource(R.drawable.rensou_cell_bg2);
-                rowRensouLayout.setPadding(left + (int) (density * 18), top, right
-                        - (int) (density * 18), bottom); // 上の画像が左に吹き出しが付くので通常より右に移動
+                rowRensouLayout.setPadding(left + (int) (density * 10), top, right
+                        - (int) (density * 10), bottom); // 上の画像が左に吹き出しが付くので通常より右に移動
             }
         }
 
