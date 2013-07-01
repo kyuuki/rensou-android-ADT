@@ -88,8 +88,14 @@ public class PostRensouFragment extends Fragment {
                     new ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
-                            // TODO: 通信エラーの時はどうする？
+                            if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
+                                // 投稿が被った可能性が高い。
+                                Toast.makeText(getActivity(), getString(R.string.post_rensou_error_transaction), Toast.LENGTH_LONG).show();
+                                mPostRensouEditText.setText("");
+                                getLatestRensou();
+                            } else {
+                                Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 ));
@@ -107,6 +113,11 @@ public class PostRensouFragment extends Fragment {
         mPostRensouEditText.setText("");
 
         // 最新の連想取得
+        getLatestRensou();
+    }
+    
+    // 最後の連想取得
+    private void getLatestRensou() {
         String url = RensouApi.getGetUrlLast();
         mRequestQueue.add(new JsonObjectRequest(Method.GET, url, null, 
             new Listener<JSONObject>() {
