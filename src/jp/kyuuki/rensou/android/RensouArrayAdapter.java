@@ -6,6 +6,7 @@ import java.util.List;
 import jp.kyuuki.rensou.android.model.RensouHistory;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,18 +43,31 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
         RensouHistory rensouHistory = getItem(position);
         
         RelativeLayout rowRensouLayout = (RelativeLayout) view.findViewById(R.id.rowRensouLayout);
-        TextView sourceText = (TextView) view.findViewById(R.id.sourceText);
         TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeText);
         TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
         
         // View
         if (rensouHistory.getRensou() != null) {
-            sourceText.setText(rensouHistory.getSource().getKeyword());
+            // 連想結果表示テキスト
+            StringBuffer buf = new StringBuffer();
+            buf.append("<font color='#ff0000'>");
+            buf.append(rensouHistory.getSource().getKeyword());
+            buf.append("</font>");
+            buf.append(" ");
+            buf.append("<small>");
+            buf.append(getContext().getString(R.string.list_rensou_related));
+            buf.append("</small> ");
+            buf.append(" ");
+            buf.append("<font color='#ff0000'>");
+            buf.append(rensouHistory.getRensou().getKeyword());
+            buf.append("</font> ");
+            rensouText.setText(Html.fromHtml(buf.toString()));
+
+            // 投稿日付
             if (rensouHistory.getRensou().getCreatedAt() != null) {
                 dateTimeText.setText(sdf.format(rensouHistory.getRensou().getCreatedAt()));
             }
-            rensouText.setText(rensouHistory.getRensou().getKeyword());
-            
+
             // 1 行おきに背景を変える
 //            int left   = rowPaddingLeft   > 0 ? rowPaddingLeft   : rowRensouLayout.getPaddingLeft();
 //            int top    = rowPaddingTop    > 0 ? rowPaddingTop    : rowRensouLayout.getPaddingTop();
@@ -62,9 +76,9 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
             // TODO: ↑なぜか値が一定しない。
             float density = getContext().getResources().getDisplayMetrics().density;
             int left   = (int) (density * 30);
-            int top    = (int) (density * 20);
+            int top    = (int) (density * 15);
             int right  = (int) (density * 40);
-            int bottom = (int) (density * 20);
+            int bottom = (int) (density * 15);
             if (position % 2 == 0) {
                 rowRensouLayout.setBackgroundResource(R.drawable.rensou_cell_bg);
                 rowRensouLayout.setPadding(left, top, right, bottom);
