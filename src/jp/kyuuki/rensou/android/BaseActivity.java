@@ -1,5 +1,7 @@
 package jp.kyuuki.rensou.android;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.app.AlertDialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,12 +12,14 @@ import android.view.MenuItem;
 /**
  * 全画面共通。
  */
-public abstract class CommonActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.action_about:
+            EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "about", 0L);
+
             PackageManager pm = this.getPackageManager();
             String versionName = "";
             PackageInfo packageInfo;
@@ -36,5 +40,17 @@ public abstract class CommonActivity extends FragmentActivity {
         }
         
         return true;
+    }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStart();
+        EasyTracker.getInstance().activityStop(this);
     }
 }

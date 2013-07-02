@@ -3,7 +3,7 @@ package jp.kyuuki.rensou.android;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class MainActivity extends CommonActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

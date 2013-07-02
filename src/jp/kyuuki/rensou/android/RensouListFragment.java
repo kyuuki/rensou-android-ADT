@@ -3,6 +3,8 @@ package jp.kyuuki.rensou.android;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.model.RensouHistory;
 import android.os.Bundle;
@@ -55,6 +57,13 @@ public class RensouListFragment extends Fragment {
         listView.setScrollingCacheEnabled(false);  // Xperia ray などでスクロール時に背景が白くなるのに対処
 
         return v;
+    }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance().setContext(getActivity());
+        EasyTracker.getTracker().sendView("RensouListFragment");
     }
 
     @SuppressWarnings("unchecked")

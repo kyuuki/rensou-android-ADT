@@ -12,7 +12,7 @@ import android.view.Menu;
 /**
  * 投稿結果画面。
  */
-public class PostResultActivity extends CommonActivity {
+public class PostResultActivity extends BaseActivity {
     
     // 引数のキー
     public static final String INTENT_EXTRA_LIST = "list";
