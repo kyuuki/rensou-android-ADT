@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -64,9 +65,12 @@ public class PostRensouFragment extends Fragment {
         mAnswerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                EasyTracker.getTracker().sendEvent("ui_action", "button_tap", "answer_button", 0L);
+                
                 // 入力チェック
                 String keyword = mPostRensouEditText.getText().toString();
                 if (Rensou.validateKeyword(keyword) == false) {
+                    EasyTracker.getTracker().sendEvent("error", "validate_keyword", "answer_button", 0L);
                     Toast.makeText(getActivity(), getString(R.string.post_rensou_error_validate_keyword), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -83,7 +87,10 @@ public class PostRensouFragment extends Fragment {
                     new Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            progressDialog.dismiss();
+                            // タイミングによってはダイアログがない場合があるかも
+                            if (progressDialog != null) {
+                                progressDialog.dismiss();
+                            }
                             progressDialog = null;
 
                             Log.v("HTTP", "body is " + response);
@@ -99,15 +106,20 @@ public class PostRensouFragment extends Fragment {
                     new ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
+                            // タイミングによってはダイアログがない場合があるかも
+                            if (progressDialog != null) {
+                                progressDialog.dismiss();
+                            }
                             progressDialog = null;
                             
                             if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
                                 // 投稿が被った可能性が高い。
+                                EasyTracker.getTracker().sendEvent("error", "transaction", "answer_button", 0L);
                                 Toast.makeText(getActivity(), getString(R.string.post_rensou_error_transaction), Toast.LENGTH_LONG).show();
                                 mPostRensouEditText.setText("");
                                 getLatestRensou();
                             } else {
+                                EasyTracker.getTracker().sendEvent("error", "communication", "answer_button", 0L);
                                 Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
                             }
                         }
@@ -130,6 +142,13 @@ public class PostRensouFragment extends Fragment {
         getLatestRensou();
     }
     
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance().setContext(getActivity());
+        EasyTracker.getTracker().sendView("PostRensouFragment");
+    }
+    
     // 最後の連想取得
     private void getLatestRensou() {
         progressDialog = new ProgressDialog(getActivity());
@@ -142,7 +161,10 @@ public class PostRensouFragment extends Fragment {
             new Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    progressDialog.dismiss();
+                    // タイミングによってはダイアログがない場合があるようだ (1 回ヌルポで落ちた)
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
                     progressDialog = null;
 
                     Log.v("HTTP", "body is " + response.toString());
@@ -157,9 +179,13 @@ public class PostRensouFragment extends Fragment {
             new ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
+                    // タイミングによってはダイアログがない場合があるかも
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
                     progressDialog = null;
 
+                    EasyTracker.getTracker().sendEvent("error", "communication", "get_latest_rensou", 0L);
                     Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
                     // TODO: 通信エラーの時はどうする？
                 }
