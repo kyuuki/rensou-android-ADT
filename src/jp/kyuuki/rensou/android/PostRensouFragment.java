@@ -65,12 +65,12 @@ public class PostRensouFragment extends Fragment {
         mAnswerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyTracker.getTracker().sendEvent("ui_action", "button_tap", "answer_button", 0L);
+                EasyTracker.getTracker().sendEvent(Analysis.GA_EC_UI_ACTION, Analysis.GA_EA_BUTTON_POST, null, null);
                 
                 // 入力チェック
                 String keyword = mPostRensouEditText.getText().toString();
                 if (Rensou.validateKeyword(keyword) == false) {
-                    EasyTracker.getTracker().sendEvent("error", "validate_keyword", "answer_button", 0L);
+                    EasyTracker.getTracker().sendEvent(Analysis.GA_EC_ERROR, Analysis.GA_EA_POST_VALIDATE, null, null);
                     Toast.makeText(getActivity(), getString(R.string.post_rensou_error_validate_keyword), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -114,12 +114,12 @@ public class PostRensouFragment extends Fragment {
                             
                             if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
                                 // 投稿が被った可能性が高い。
-                                EasyTracker.getTracker().sendEvent("error", "transaction", "answer_button", 0L);
+                                EasyTracker.getTracker().sendEvent(Analysis.GA_EC_ERROR, Analysis.GA_EA_POST_CONFLICT, null, null);
                                 Toast.makeText(getActivity(), getString(R.string.post_rensou_error_transaction), Toast.LENGTH_LONG).show();
                                 mPostRensouEditText.setText("");
                                 getLatestRensou();
                             } else {
-                                EasyTracker.getTracker().sendEvent("error", "communication", "answer_button", 0L);
+                                EasyTracker.getTracker().sendEvent(Analysis.GA_EC_ERROR, Analysis.GA_EA_POST_ERROR, null, null);
                                 Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
                             }
                         }
@@ -145,8 +145,9 @@ public class PostRensouFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().setContext(getActivity());
-        EasyTracker.getTracker().sendView("PostRensouFragment");
+        // Fragment のページビューを取ると Activity と混乱するので、このアプリでは取らない。
+//        EasyTracker.getInstance().setContext(getActivity());
+//        EasyTracker.getTracker().sendView("PostRensouFragment");
     }
     
     // 最後の連想取得
@@ -185,7 +186,7 @@ public class PostRensouFragment extends Fragment {
                     }
                     progressDialog = null;
 
-                    EasyTracker.getTracker().sendEvent("error", "communication", "get_latest_rensou", 0L);
+                    EasyTracker.getTracker().sendEvent(Analysis.GA_EC_ERROR, Analysis.GA_EA_GET_LAST_KEYWORD, null, null);
                     Toast.makeText(getActivity(), getString(R.string.error_communication), Toast.LENGTH_LONG).show();
                     // TODO: 通信エラーの時はどうする？
                 }

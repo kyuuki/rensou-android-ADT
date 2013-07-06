@@ -18,7 +18,7 @@ public abstract class BaseActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.action_about:
-            EasyTracker.getTracker().sendEvent("ui_action", "menu_select", "about", 0L);
+            EasyTracker.getTracker().sendEvent(Analysis.GA_EC_UI_ACTION, Analysis.GA_EA_MENU_ABOUT, null, null);
 
             PackageManager pm = this.getPackageManager();
             String versionName = "";

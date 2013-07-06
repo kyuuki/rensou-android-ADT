@@ -3,8 +3,6 @@ package jp.kyuuki.rensou.android;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.analytics.tracking.android.EasyTracker;
-
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.model.RensouHistory;
 import android.os.Bundle;
@@ -62,8 +60,9 @@ public class RensouListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        EasyTracker.getInstance().setContext(getActivity());
-        EasyTracker.getTracker().sendView("RensouListFragment");
+        // Fragment のページビューを取ると Activity と混乱するので、このアプリでは取らない。
+//        EasyTracker.getInstance().setContext(getActivity());
+//        EasyTracker.getTracker().sendView("RensouListFragment");
     }
 
     @SuppressWarnings("unchecked")
