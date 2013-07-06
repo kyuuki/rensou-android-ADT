@@ -1,6 +1,7 @@
 package jp.kyuuki.rensou.android;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.net.RensouApi;
@@ -57,7 +58,14 @@ public class PostRensouFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_post_rensou, container, false);
+        // 多言語化処理
+        View v;
+        if (Locale.JAPAN.equals(Locale.getDefault())) {
+            v = inflater.inflate(R.layout.fragment_post_rensou, container, false);
+        } else {
+            // 日本語以外のリソースを用意していないので、一部クラシックスタイルで表示する。
+            v = inflater.inflate(R.layout.fragment_post_rensou_noja, container, false);
+        }
 
         mLatestKeywordText = (TextView) v.findViewById(R.id.latestKeywordText);
         mPostRensouEditText = (EditText) v.findViewById(R.id.postRensouEditText);
@@ -127,6 +135,7 @@ public class PostRensouFragment extends Fragment {
                 ));
             }
         });
+
         
         return v;
     }
