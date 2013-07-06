@@ -1,23 +1,16 @@
-package jp.kyuuki.rensou.android;
+package jp.kyuuki.rensou.android.fragment;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+import jp.kyuuki.rensou.android.Analysis;
+import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.activity.PostResultActivity;
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.net.RensouApi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.android.volley.Request.Method;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,8 +26,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
- * 連想投稿部品。
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.analytics.tracking.android.EasyTracker;
+
+/**
+ * 連想投稿かけら。
  */
 public class PostRensouFragment extends Fragment {
     // Model

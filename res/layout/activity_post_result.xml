@@ -6,7 +6,8 @@
     android:background="#90ee90"
     tools:context=".PostResultActivity" >
 
-    <fragment android:name="jp.kyuuki.rensou.android.RensouListFragment"
+    <fragment
+        android:name="jp.kyuuki.rensou.android.fragment.DummyFragment"
         android:id="@+id/rensouListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

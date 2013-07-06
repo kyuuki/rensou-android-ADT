@@ -1,13 +1,14 @@
-package jp.kyuuki.rensou.android;
+package jp.kyuuki.rensou.android.activity;
 
 import java.util.ArrayList;
 
+import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.fragment.RensouListFragment;
 import jp.kyuuki.rensou.android.model.Rensou;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
 
 /**
  * 投稿結果画面。
@@ -36,17 +37,10 @@ public class PostResultActivity extends BaseActivity {
  
         // フラグメントに渡す値をセット
         Bundle bundle = new Bundle();
-        bundle.putSerializable("list", list);
+        bundle.putSerializable(RensouListFragment.BUNDLE_LIST, list);
         fragment.setArguments(bundle);
 
         t.replace(R.id.root, fragment);
         t.commit();
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 }

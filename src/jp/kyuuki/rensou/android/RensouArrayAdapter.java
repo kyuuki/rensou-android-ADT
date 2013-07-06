@@ -1,10 +1,9 @@
 package jp.kyuuki.rensou.android;
 
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import jp.kyuuki.rensou.android.model.RensouHistory;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -17,9 +16,9 @@ import android.widget.TextView;
 public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
     LayoutInflater mInflater;
     
-    // 日付のフォーマット
-    @SuppressLint("SimpleDateFormat")
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  // TODO: 多言語化
+    // 日付のフォーマット → 多言語化により Andorid 標準の表示形式にあわせることにした。
+    //@SuppressLint("SimpleDateFormat")
+    //static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
     public RensouArrayAdapter(Context context, int textViewResourceId, List<RensouHistory> list) {
         super(context, textViewResourceId, list);
@@ -64,8 +63,13 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
             rensouText.setText(Html.fromHtml(buf.toString()));
 
             // 投稿日付
+            java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getContext());
+            java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getContext());
+
             if (rensouHistory.getRensou().getCreatedAt() != null) {
-                dateTimeText.setText(sdf.format(rensouHistory.getRensou().getCreatedAt()));
+                //dateTimeText.setText(sdf.format(rensouHistory.getRensou().getCreatedAt()));
+                Date d = rensouHistory.getRensou().getCreatedAt();
+                dateTimeText.setText(dateFormat.format(d) + " " + timeFormat.format(d));
             }
 
             // 1 行おきに背景を変える

@@ -9,7 +9,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <fragment android:name="jp.kyuuki.rensou.android.PostRensouFragment"
+    <fragment
+        android:name="jp.kyuuki.rensou.android.fragment.PostRensouFragment"
         android:id="@+id/answerFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
