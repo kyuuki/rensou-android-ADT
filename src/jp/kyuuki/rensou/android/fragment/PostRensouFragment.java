@@ -138,13 +138,12 @@ public class PostRensouFragment extends Fragment {
                 ));
             }
         });
-
         
         return v;
     }
     
     @Override
-    public void onResume () {
+    public void onResume() {
         super.onResume();
 
         // 前回入力した投稿削除
