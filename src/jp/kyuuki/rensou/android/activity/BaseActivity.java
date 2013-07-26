@@ -58,9 +58,9 @@ public abstract class BaseActivity extends FragmentActivity {
             ad.setTitle(getString(R.string.action_about));
             ad.setMessage(getString(R.string.app_name) + " " + versionName);
             ad.show();
-            break;
+            return true;
         }
         
-        return true;
+        return false;
     }
 }

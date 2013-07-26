@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.fragment.RensouListFragment;
 import jp.kyuuki.rensou.android.model.Rensou;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 
 /**
  * 投稿結果画面。
@@ -28,6 +31,9 @@ public class PostResultActivity extends BaseActivity {
         @SuppressWarnings("unchecked")
         ArrayList<Rensou> list = (ArrayList<Rensou>) intent.getSerializableExtra(INTENT_EXTRA_LIST);
 
+        // アクションバー
+        setDisplayHomeAsUpEnabled(true);
+
         /*
          * フラグメント差し替え
          */
@@ -42,5 +48,24 @@ public class PostResultActivity extends BaseActivity {
 
         t.replace(R.id.root, fragment);
         t.commit();
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        
+        return super.onOptionsItemSelected(item);
+    }
+
+    
+    @SuppressLint("NewApi")
+    private void setDisplayHomeAsUpEnabled(boolean b) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            getActionBar().setDisplayHomeAsUpEnabled(b);
+        }
     }
 }
