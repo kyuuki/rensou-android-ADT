@@ -3,7 +3,9 @@
 
     <string name="app_name">連想げーむ</string>
     <string name="action_settings">設定</string>
-    <string name="action_about">連想げーむについて</string>
+    <string name="action_about">アプリ情報</string>
+    <string name="action_license">ライセンス情報</string>
+    <string name="action_request">要望 / バグ報告</string>
     <string name="activity_result_title">これまでの連想</string>
 
     <!-- 連想投稿画面 -->
@@ -18,7 +20,12 @@
     <!-- 連想一覧画面 -->
     <string name="list_rensou_related">といえば</string>
 
-    <!-- 連想げーむについて -->
+    <!-- アプリ情報 など-->
+    <string name="how_to_play">遊び方\n\nキーワードから連想されることばを投稿して遊ぶゲームです。\n他の人が投稿した連想ワードとのつながりを見てニヤニヤしましょう。\n変な言葉は投稿しないようにね！</string>
+    <string name="license_infomation">このアプリでは、以下のライブラリを使用しています。\n\nVolley\nhttps://android.googlesource.com/platform/frameworks/volley/\nCopyright (C) 2011 The Android Open Source Project\n\nApache Commons Lang\nhttp://commons.apache.org/proper/commons-lang/\nCopyright (C) 2001-2013 The Apache Software Foundation. All Rights Reserved.</string>
+    <string name="request_email">kyuuki.japan+rensou@gmail.com</string>
+    <string name="request_subject">【連想げーむ】 お問い合わせ</string>
+    <string name="request_text">------\nアプリバージョン: %1$s\nAndroid バージョン: %2$s\n機種名: %3$s\n------\n\n</string>
     <string name="version">バージョン</string>
 
     <!-- 共通エラーメッセージ -->

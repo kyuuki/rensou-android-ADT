@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 public class OverScrollListView extends ListView {
 
-    private static int MAX_OVER_SCROLL_Y = 100;  
+    private static int MAX_OVER_SCROLL_Y = 100;
 
     public OverScrollListView(Context context) {
         super(context);

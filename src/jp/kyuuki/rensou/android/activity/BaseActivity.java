@@ -2,11 +2,17 @@ package jp.kyuuki.rensou.android.activity;
 
 import jp.kyuuki.rensou.android.Analysis;
 import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.Utils;
 import android.app.AlertDialog;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -38,29 +44,80 @@ public abstract class BaseActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentManager manager = getSupportFragmentManager();
+        DialogFragment dialog;
+        
         switch (item.getItemId()) {
         case R.id.action_about:
             EasyTracker.getTracker().sendEvent(Analysis.GA_EC_UI_ACTION, Analysis.GA_EA_MENU_ABOUT, null, null);
-
-            PackageManager pm = this.getPackageManager();
-            String versionName = "";
-            PackageInfo packageInfo;
-            try {
-                packageInfo = pm.getPackageInfo(this.getPackageName(), PackageManager.GET_ACTIVITIES);
-                versionName = getString(R.string.version) + " " + packageInfo.versionName;
-            } catch (NameNotFoundException e) {
-                e.printStackTrace();
-                versionName = "";
-            }
-            
-            AlertDialog.Builder ab = new AlertDialog.Builder(this);
-            AlertDialog ad = ab.create();
-            ad.setTitle(getString(R.string.action_about));
-            ad.setMessage(getString(R.string.app_name) + " " + versionName);
-            ad.show();
+            // 古いやり方らしい。
+//            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+//            AlertDialog ad = ab.create();
+//            ad.setTitle(getString(R.string.action_about));
+//            ad.setMessage(getString(R.string.app_name) + " " + versionName);
+//            ad.show();
+            dialog = new AboutDialogFragment();
+            dialog.show(manager, "dialog");
             return true;
+        case R.id.action_license:
+            dialog = new LicenseInfomationDialogFragment();
+            dialog.show(manager, "dialog");
+            return true;
+        case R.id.action_request:
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:" + getString(R.string.request_email)));
+            //intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"kyuuki.japan+rensou@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.request_subject));
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.request_text, 
+                    Utils.getVersionName(this), Build.VERSION.RELEASE, Build.MANUFACTURER + " " + Build.MODEL));
+            startActivity(intent);
         }
         
         return false;
+    }
+    
+    // http://www.jp-z.jp/changelog/2013-05-02-1.html
+    // http://www.kojion.com/blog/android/dialog_fragment/
+    public static class AboutDialogFragment extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstatnceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getString(R.string.action_about));
+            builder.setMessage(getMessage());
+            builder.setPositiveButton("OK", null);
+            AlertDialog dialog = builder.create();
+            return dialog;
+        }
+        
+        private String getMessage() {
+            Context context = getActivity();
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(context.getString(R.string.app_name) + " " + context.getString(R.string.version) + " " + Utils.getVersionName(context) + "\n");
+            buffer.append("\n");
+            buffer.append(context.getString(R.string.how_to_play));
+            return buffer.toString();
+        }
+    }
+    
+    public static class LicenseInfomationDialogFragment extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstatnceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getString(R.string.action_license));
+            builder.setMessage(getMessage());
+            builder.setPositiveButton("OK", null);
+            AlertDialog dialog = builder.create();
+            return dialog;
+        }
+        
+        private String getMessage() {
+            Context context = getActivity();
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(context.getString(R.string.license_infomation));
+            return buffer.toString();
+        }
     }
 }
