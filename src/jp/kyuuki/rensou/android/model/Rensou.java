@@ -1,8 +1,12 @@
 package jp.kyuuki.rensou.android.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
+import android.content.res.Resources;
+
+import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.common.Utils;
 
 /**
@@ -61,5 +65,28 @@ public class Rensou implements Serializable {
         }
         
         return true;
+    }
+    
+    public static Rensou createDummyRensou(Resources resources) {
+        Rensou r = new Rensou();
+        r.setId(1);
+        r.setKeyword(resources.getString(R.string.dummy_keyword));
+        
+        return r;
+    }
+    
+    public static ArrayList<Rensou> createDummyRensouList(Resources resources) {
+        String[] keywords = resources.getStringArray(R.array.dummy_list);
+        ArrayList<Rensou> list = new ArrayList<Rensou>();
+        
+        for (int i = 0; i < keywords.length - 1; i++) {
+            Rensou r = new Rensou();
+            r.setId(1 + i);
+            r.setKeyword(keywords[i]);
+
+            list.add(r);
+        }
+        
+        return list;
     }
 }

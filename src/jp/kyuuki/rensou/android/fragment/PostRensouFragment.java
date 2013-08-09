@@ -107,6 +107,7 @@ public class PostRensouFragment extends Fragment {
                             Log.v("HTTP", "body is " + response);
 
                             ArrayList<Rensou> list = RensouApi.json2Rensous(response);
+                            list = Rensou.createDummyRensouList(getResources());  // DEBUG
 
                             Intent intent = new Intent(getActivity(), PostResultActivity.class);
                             intent.putExtra("list", list);
@@ -181,6 +182,7 @@ public class PostRensouFragment extends Fragment {
 
                     Log.v("HTTP", "body is " + response.toString());
                     Rensou rensou = RensouApi.json2Rensou(response);
+                    rensou = Rensou.createDummyRensou(getResources());  // DEBUG
                     
                     // TODO: mLastKeywordText が作成出来ていないパターンがある？
                     mThemeId = rensou.getId();

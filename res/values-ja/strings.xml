@@ -30,4 +30,20 @@
 
     <!-- 共通エラーメッセージ -->
     <string name="error_communication">通信エラー</string>
+    
+    <!-- ダミーデータ -->
+    <string name="dummy_keyword">竹島</string>
+    <string-array name="dummy_list"><!-- 上が最新 -->
+        <item>原辰徳</item>
+        <item>ハラ</item>
+        <item>ニコル</item>
+        <item>ジヨン</item>
+        <item>ギュリ</item>
+        <item>スンヨン</item>
+        <item>KARA</item>
+        <item>少女時代</item>
+        <item>韓国</item>
+        <item>独島</item>
+        <item>竹島</item>
+        </string-array>
 </resources>
