@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#90ee90"
@@ -9,9 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <fragment
-        android:name="jp.kyuuki.rensou.android.fragment.PostRensouFragment"
-        android:id="@+id/answerFragment"
+    <ScrollView 
+        android:id="@+id/mainScroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+        
+        <fragment
+            android:id="@+id/answerFragment"
+            android:name="jp.kyuuki.rensou.android.fragment.PostRensouFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <com.google.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainScroll"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-5396037533357593/4690387868"
+        ads:loadAdOnCreate="true" />
 </RelativeLayout>
