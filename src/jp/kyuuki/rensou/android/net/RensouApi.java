@@ -32,9 +32,13 @@ public class RensouApi {
     }
     
     // http://www.adakoda.com/adakoda/2010/02/android-iso-8601-parse.html
-    static FastDateFormat fastDateFormat = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT;
+    static FastDateFormat fastDateFormat1 = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT;  // yyyy-MM-dd'T'HH:mm:ssZZ
+    
+    // 2010-02-27T13:00:00Z がパースできない。 2010-02-27T13:00:00+00:00 と同義っぽいんだけど。
+    // http://stackoverflow.com/questions/424522/how-can-i-recognize-the-zulu-time-zone-in-java-dateutils-parsedate
+    static FastDateFormat fastDateFormat2 = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss'Z'");
     //static FastDateFormat fastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
-    static String patterns[] = { fastDateFormat.getPattern() };
+    static String patterns[] = { fastDateFormat1.getPattern(),  fastDateFormat2.getPattern() };
 
     //
     // API JSON 仕様
@@ -76,18 +80,28 @@ public class RensouApi {
         try {
             rensou.setId(o.getLong("id"));
             rensou.setKeyword(o.getString("keyword"));
-            Date d = DateUtils.parseDate(o.getString("created_at"), patterns);
+            Date d = parseDate(o.getString("created_at"));
             System.err.println(d);
             rensou.setCreatedAt(d);
         } catch (JSONException e) {
             // TODO: JSON 構文解析エラー処理
             e.printStackTrace();
             return null;
+        }
+        
+        return rensou;
+    }
+    
+    // API 仕様変更されてもいいように、それなりの値を返してしまう。ただ、エラーはどこかで検知したい。
+    public static Date parseDate(String s) {
+        Date d;
+        
+        try {
+            d = DateUtils.parseDate(s, patterns);
         } catch (DateParseException e) {
             e.printStackTrace();
-            return null;
+            d = null;
         }
-
-        return rensou;
+        return d;
     }
 }
