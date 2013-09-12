@@ -7,6 +7,6 @@
     <bool name="ga_reportUncaughtExceptions">true</bool>
     
     <!-- Activity の表示名 -->
-    <string name="jp.kyuuki.rensou.android.MainActivity">Main</string>
-    <string name="jp.kyuuki.rensou.android.PostResultActivity">PostResult</string>
+    <string name="jp.kyuuki.rensou.android.activity.MainActivity">Main</string>
+    <string name="jp.kyuuki.rensou.android.activity.PostResultActivity">PostResult</string>
 </resources>
