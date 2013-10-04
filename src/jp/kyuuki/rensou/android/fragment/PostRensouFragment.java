@@ -7,7 +7,9 @@ import jp.kyuuki.rensou.android.Analysis;
 import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.activity.PostResultActivity;
 import jp.kyuuki.rensou.android.model.Rensou;
+import jp.kyuuki.rensou.android.model.User;
 import jp.kyuuki.rensou.android.net.RensouApi;
+import jp.kyuuki.rensou.android.net.VolleyUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,7 +35,6 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.analytics.tracking.android.EasyTracker;
 
 /**
@@ -56,7 +57,7 @@ public class PostRensouFragment extends Fragment {
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        mRequestQueue = VolleyUtils.getRequestQueue(getActivity().getApplicationContext());
     }
 
     @Override
@@ -87,7 +88,7 @@ public class PostRensouFragment extends Fragment {
                 }
                 
                 String url = RensouApi.getPostUrl();
-                JSONObject json = RensouApi.makeRensouJson(mThemeId, keyword);
+                JSONObject json = RensouApi.makeRensouJson(mThemeId, keyword, User.getMyUser(getActivity()));
                 
                 progressDialog = new ProgressDialog(getActivity());
                 progressDialog.setMessage(getString(R.string.post_rensou_posting));
@@ -164,6 +165,7 @@ public class PostRensouFragment extends Fragment {
     
     // 最後の連想取得
     private void getLatestRensou() {
+        Log.d("kyuuki", "getLatestRensou");
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.post_rensou_reading));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

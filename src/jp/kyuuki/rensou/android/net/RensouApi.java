@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import jp.kyuuki.rensou.android.model.Rensou;
+import jp.kyuuki.rensou.android.model.User;
 
 /**
  * 連想 API。
@@ -21,15 +22,8 @@ import jp.kyuuki.rensou.android.model.Rensou;
  */
 public class RensouApi {
     // https://www.facebook.com/groups/428772910554185/permalink/430164457081697/
-    public static String BASE_URL = "http://api.u1fukui.com/rensou";
-    
-    public static String getGetUrlLast() {
-        return BASE_URL + "/rensou.json";
-    }
-
-    public static String getPostUrl() {
-        return BASE_URL + "/rensou.json";
-    }
+    //public static String BASE_URL = "http://api.u1fukui.com/rensou";
+    public static String BASE_URL = "http://kyuuki.jp:4567";
     
     // http://www.adakoda.com/adakoda/2010/02/android-iso-8601-parse.html
     static FastDateFormat fastDateFormat1 = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT;  // yyyy-MM-dd'T'HH:mm:ssZZ
@@ -40,14 +34,57 @@ public class RensouApi {
     //static FastDateFormat fastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
     static String patterns[] = { fastDateFormat1.getPattern(),  fastDateFormat2.getPattern() };
 
-    //
-    // API JSON 仕様
-    //
-    public static JSONObject makeRensouJson(long themeId, String keyword) {
+    /*
+     * API JSON 仕様
+     */
+    
+    // POST user
+    public static String getPostUrlRegisterUser() {
+        return BASE_URL + "/user";
+    }
+
+    public static JSONObject makeRegisterUserJson() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("device_type", 1);
+        } catch (JSONException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+            return null;
+        }
+
+        return json;
+    }
+    
+    public static User json2User(JSONObject o) {
+        User user;
+        try {
+            user = new User(o.getLong("user_id"));
+        } catch (JSONException e) {
+            // TODO: JSON 構文解析エラー処理
+            e.printStackTrace();
+            return null;
+        }
+        
+        return user;
+    }
+
+    // GET rensou.json
+    public static String getGetUrlLast() {
+        return BASE_URL + "/rensou.json";
+    }
+
+    // POST rensou.json
+    public static String getPostUrl() {
+        return BASE_URL + "/rensou.json";
+    }
+
+    public static JSONObject makeRensouJson(long themeId, String keyword, User user) {
         JSONObject json = new JSONObject();
         try {
             json.put("theme_id", themeId);
             json.put("keyword", keyword);
+            json.put("user_id", user.getId());
         } catch (JSONException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();

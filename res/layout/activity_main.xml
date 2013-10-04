@@ -14,12 +14,11 @@
         android:id="@+id/mainScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
-        <fragment
-            android:id="@+id/answerFragment"
-            android:name="jp.kyuuki.rensou.android.fragment.PostRensouFragment"
+        <FrameLayout
+            android:id="@+id/mainFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+        </FrameLayout>
     </ScrollView>
 
     <com.google.ads.AdView
