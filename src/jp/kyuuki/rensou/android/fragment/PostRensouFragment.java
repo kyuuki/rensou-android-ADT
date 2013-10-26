@@ -165,7 +165,6 @@ public class PostRensouFragment extends Fragment {
     
     // 最後の連想取得
     private void getLatestRensou() {
-        Log.d("kyuuki", "getLatestRensou");
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.post_rensou_reading));
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

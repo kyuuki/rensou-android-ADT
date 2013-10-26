@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import jp.kyuuki.rensou.android.Config;
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.model.User;
 
@@ -21,9 +22,7 @@ import jp.kyuuki.rensou.android.model.User;
  * - 通信ライブラリには依存したくない。
  */
 public class RensouApi {
-    // https://www.facebook.com/groups/428772910554185/permalink/430164457081697/
-    //public static String BASE_URL = "http://api.u1fukui.com/rensou";
-    public static String BASE_URL = "http://kyuuki.jp:4567";
+    public static String BASE_URL = Config.API_BASE_URL;
     
     // http://www.adakoda.com/adakoda/2010/02/android-iso-8601-parse.html
     static FastDateFormat fastDateFormat1 = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT;  // yyyy-MM-dd'T'HH:mm:ssZZ
