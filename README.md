@@ -1,6 +1,10 @@
-rensou-android
-==============
+é€£æƒ³ã’ãƒ¼ã‚€ for Android
+======================
 
-http://www.kojion.com/blog/android/naming_rule/
+* [Android ç‰ˆ] https://play.google.com/store/apps/details?id=jp.kyuuki.rensou.android
+* [iPhone ç‰ˆ] https://itunes.apple.com/jp/app/minnade-jigeyou!sosharu-lian/id668351056?mt=8
 
-iOS —p‘fŞ‚ğ—˜—p‚·‚éê‡‚Íƒtƒ@ƒCƒ‹–¼‚ğ•ÏX‚µ‚È‚¢B
+### è¦ç´„ ###
+* http://www.kojion.com/blog/android/naming_rule/
+* iOS ç”¨ç´ æã‚’åˆ©ç”¨ã™ã‚‹å ´åˆã¯ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å¤‰æ›´ã—ãªã„ã€‚
+
