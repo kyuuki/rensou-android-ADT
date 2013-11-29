@@ -17,7 +17,7 @@ public class Rensou implements Serializable {
 
     private long id;
     private String keyword;
-    private boolean favorite;
+    private int favorite;
     private boolean spam;
     private Date createdAt;
 
@@ -33,10 +33,10 @@ public class Rensou implements Serializable {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
-    public boolean isFavorite() {
+    public int getFavorite() {
         return favorite;
     }
-    public void setFavorite(boolean favorite) {
+    public void setFavorite(int favorite) {
         this.favorite = favorite;
     }
     public boolean isSpam() {

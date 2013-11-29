@@ -47,6 +47,15 @@
         <item name="android:paddingTop">15dp</item>
         <item name="android:paddingBottom">15dp</item>
     </style>
+    <style name="U1Theme.RowRankingLayoutStyle">
+        <item name="android:background">@drawable/ranking_cell_bg</item><!-- どうやっても背景画像が広がってしまう margin が効かない -->
+        <item name="android:layout_height">120dp</item>
+        <item name="android:minHeight">120dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
     
     <!-- Classical theme -->
     <style name="ClassicalTheme" parent="AppTheme">

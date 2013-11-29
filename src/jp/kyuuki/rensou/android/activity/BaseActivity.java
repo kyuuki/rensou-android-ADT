@@ -39,6 +39,12 @@ public abstract class BaseActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        
+        // ランキング画面ならメニューに 「ランキング」 を表示しない
+        if (this instanceof RankingActivity) {
+            menu.removeItem(R.id.action_ranking);
+        }
+        
         return true;
     }
 
@@ -47,7 +53,14 @@ public abstract class BaseActivity extends FragmentActivity {
         FragmentManager manager = getSupportFragmentManager();
         DialogFragment dialog;
         
+        Intent intent;
+        
         switch (item.getItemId()) {
+        case R.id.action_ranking:
+            // ランキング画面
+            intent = new Intent(this, RankingActivity.class);
+            startActivity(intent);
+            return true;
         case R.id.action_about:
             EasyTracker.getTracker().sendEvent(Analysis.GA_EC_UI_ACTION, Analysis.GA_EA_MENU_ABOUT, null, null);
             // 古いやり方らしい。
@@ -64,7 +77,7 @@ public abstract class BaseActivity extends FragmentActivity {
             dialog.show(manager, "dialog");
             return true;
         case R.id.action_request:
-            Intent intent = new Intent();
+            intent = new Intent();
             intent.setAction(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:" + getString(R.string.request_email)));
             //intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"kyuuki.japan+rensou@gmail.com"});

@@ -2,11 +2,13 @@
 <resources>
 
     <string name="app_name">連想げーむ</string>
+    <string name="action_ranking">ランキング</string>
     <string name="action_settings">設定</string>
     <string name="action_about">アプリ情報</string>
     <string name="action_license">ライセンス情報</string>
     <string name="action_request">要望 / バグ報告</string>
     <string name="activity_result_title">これまでの連想</string>
+    <string name="activity_ranking_title">人気ランキング</string>
 
     <!-- 連想投稿画面 -->
     <string name="post_rensou_reading">読込中 &#8230;&#8230;&#8230;</string>
@@ -19,6 +21,9 @@
     
     <!-- 連想一覧画面 -->
     <string name="list_rensou_related">といえば</string>
+
+    <!-- ランキング画面 -->
+    <string name="ranking_like_count">いいね！%1$d 件</string>
 
     <!-- アプリ情報 など-->
     <string name="how_to_play">遊び方\n\nキーワードから連想されることばを投稿して遊ぶゲームです。\n他の人が投稿した連想ワードとのつながりを見てニヤニヤしましょう。\n変な言葉は投稿しないようにね！</string>
@@ -45,5 +50,5 @@
         <item>韓国</item>
         <item>独島</item>
         <item>竹島</item>
-        </string-array>
+    </string-array>
 </resources>
