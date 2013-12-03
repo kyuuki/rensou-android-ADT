@@ -15,6 +15,7 @@ public final class Analysis {
     // ui_action
     public static final String GA_EA_BUTTON_POST  = "button_post";  // 投稿ボタン押下
     public static final String GA_EA_MENU_ABOUT = "menu_about";  // About メニュー選択
+    public static final String GA_EA_MENU_RANKING = "menu_ranking";  // ランキングメニュー選択
     
     // error
     public static final String GA_EA_POST_CONFLICT = "post_conflict";  // 投稿がかぶった

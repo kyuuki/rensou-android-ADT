@@ -4,8 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.RensouUtils;
 import jp.kyuuki.rensou.android.model.Rank;
-import jp.kyuuki.rensou.android.model.RensouHistory;
+import jp.kyuuki.rensou.android.model.Rensou;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class RankingArrayAdapter extends ArrayAdapter<Rank> {
         }
         
         Rank rank = getItem(position);
-        RensouHistory rensouHistory = rank.getRensouHistory();
+        Rensou rensou = rank.getRensou();
         
         ImageView rankImage = (ImageView) view.findViewById(R.id.rankImage);
         TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
@@ -59,37 +60,24 @@ public class RankingArrayAdapter extends ArrayAdapter<Rank> {
         TextView favoriteTextView = (TextView) view.findViewById(R.id.favoriteText);
         
         // View
-        if (rensouHistory.getRensou() != null) {
+        if (rensou != null) {
             // ランク画像
             rankImage.setImageResource(rankImageResource[position]);  // 配列のチェックはしない。ここに渡すデータ数と画像数はあわせておくこと前提。
 
             // 連想結果表示テキスト
-            // TODO 共通化
-            StringBuffer buf = new StringBuffer();
-            buf.append("<font color='#ff0000'>");
-            buf.append(rensouHistory.getSource().getKeyword());
-            buf.append("</font>");
-            buf.append(" ");
-            buf.append("<small>");
-            buf.append(getContext().getString(R.string.list_rensou_related));
-            buf.append("</small> ");
-            buf.append(" ");
-            buf.append("<font color='#ff0000'>");
-            buf.append(rensouHistory.getRensou().getKeyword());
-            buf.append("</font> ");
-            rensouText.setText(Html.fromHtml(buf.toString()));
+            rensouText.setText(Html.fromHtml(RensouUtils.rensouToHtml(rensou, getContext())));
 
             // 投稿日付
             java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getContext());
             java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getContext());
 
-            if (rensouHistory.getRensou().getCreatedAt() != null) {
-                Date d = rensouHistory.getRensou().getCreatedAt();
+            if (rensou.getCreatedAt() != null) {
+                Date d = rensou.getCreatedAt();
                 dateTimeText.setText(dateFormat.format(d) + " " + timeFormat.format(d));
             }
 
             // いいね！数
-            favoriteTextView.setText(getContext().getString(R.string.ranking_like_count, rensouHistory.getRensou().getFavorite()));
+            favoriteTextView.setText(getContext().getString(R.string.ranking_like_count, rensou.getFavorite()));
         }
 
         return view;

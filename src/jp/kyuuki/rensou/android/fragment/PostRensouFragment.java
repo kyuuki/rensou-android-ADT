@@ -38,7 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.analytics.tracking.android.EasyTracker;
 
 /**
- * 連想投稿かけら。
+ * 連想投稿フラグメント。
  */
 public class PostRensouFragment extends Fragment {
     // Model
@@ -108,7 +108,9 @@ public class PostRensouFragment extends Fragment {
                             Log.v("HTTP", "body is " + response);
 
                             ArrayList<Rensou> list = RensouApi.json2Rensous(response);
-                            //list = Rensou.createDummyRensouList(getResources());  // DEBUG
+                            
+                            // DUMMY
+                            //try { list = Rensou.createDummyRensouList(getResources()); } catch (Exception e) {}
 
                             Intent intent = new Intent(getActivity(), PostResultActivity.class);
                             intent.putExtra("list", list);
@@ -183,7 +185,9 @@ public class PostRensouFragment extends Fragment {
 
                     Log.v("HTTP", "body is " + response.toString());
                     Rensou rensou = RensouApi.json2Rensou(response);
-                    //rensou = Rensou.createDummyRensou(getResources());  // DEBUG
+                    
+                    // DUMMY
+                    //rensou = Rensou.createDummyRensou(getResources(), rensou.getId());
                     
                     // TODO: mLastKeywordText が作成出来ていないパターンがある？
                     mThemeId = rensou.getId();

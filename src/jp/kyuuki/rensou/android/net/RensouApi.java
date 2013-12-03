@@ -115,12 +115,14 @@ public class RensouApi {
         Rensou rensou = new Rensou();
         try {
             rensou.setId(o.getLong("id"));
+            rensou.setUserId(o.getLong("user_id"));
+            rensou.setOldKeyword(o.getString("old_keyword"));
             rensou.setKeyword(o.getString("keyword"));
             Date d = parseDate(o.getString("created_at"));
-            System.err.println(d);
             rensou.setCreatedAt(d);
         } catch (JSONException e) {
             // TODO: JSON 構文解析エラー処理
+            // TODO: 致命的なエラーをイベント送信するしくみ
             e.printStackTrace();
             return null;
         }

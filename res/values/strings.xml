@@ -27,7 +27,7 @@
 
     <!-- アプリ情報 など-->
     <string name="how_to_play">How To Play\n\nThis app is a game to post association words about keywords.\nSmile for looking to others posts.\nDon\'t post swear words!</string>
-    <string name="license_infomation">This app uses the following libraries.\n\nVolley\nhttps://android.googlesource.com/platform/frameworks/volley/\nCopyright (C) 2011 The Android Open Source Project\n\nApache Commons Lang\nhttp://commons.apache.org/proper/commons-lang/\nCopyright (C) 2001-2013 The Apache Software Foundation. All Rights Reserved.</string>
+    <string name="license_infomation">This app uses the following libraries.\n\nVolley\nhttps://android.googlesource.com/platform/frameworks/volley/\nCopyright &#169; 2011 The Android Open Source Project\n\nApache Commons Lang\nhttp://commons.apache.org/proper/commons-lang/\nCopyright &#169; 2001–2013 The Apache Software Foundation. All Rights Reserved.</string>
     <string name="request_email">kyuuki.japan+rensou@gmail.com</string>
     <string name="request_subject">[Association Game] Request</string>
     <string name="request_text">------\nApp Version: %1$s\nAndroid Version: %2$s\nDevice Name: %3$s\n------\n\n</string>

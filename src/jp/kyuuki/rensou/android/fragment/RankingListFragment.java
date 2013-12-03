@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
- * ランキングリストかけら。
+ * ランキングリストフラグメント。
  * 
  * - 自前で通信して、データ取得まで行う (この中で閉じる)。
  */
@@ -28,13 +28,11 @@ public class RankingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_ranking_list, container, false);
 
-        // TODO: ダミーデータ
         List<Rank> ranking = null;
-        try {
-            ranking = Rank.createDummyRanking(getResources());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        // TODO: ダミーデータ
+        // DUMMY
+        try { ranking = Rank.createDummyRanking(getResources()); } catch (Exception e) {};
 
         RankingArrayAdapter adapter = new RankingArrayAdapter(getActivity(), R.layout.row_ranking, ranking);
 

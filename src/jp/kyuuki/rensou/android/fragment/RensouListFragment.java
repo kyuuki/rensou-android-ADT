@@ -1,12 +1,10 @@
 package jp.kyuuki.rensou.android.fragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.kyuuki.rensou.android.R;
-import jp.kyuuki.rensou.android.RensouArrayAdapter;
+import jp.kyuuki.rensou.android.adapter.RensouArrayAdapter;
 import jp.kyuuki.rensou.android.model.Rensou;
-import jp.kyuuki.rensou.android.model.RensouHistory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
- * 連想リストかけら。
+ * 連想リストフラグメント。
  */
 public class RensouListFragment extends Fragment {
     // 引数のキー
@@ -43,11 +41,8 @@ public class RensouListFragment extends Fragment {
             Log.e("rensou", "Invalid bundle list");
             return v;
         }
-        
-        // 連想リスト → 連想履歴リスト作成
-        List<RensouHistory> rensouHistoryList = makeResnouHistoryList(list);
 
-        RensouArrayAdapter adapter = new RensouArrayAdapter(getActivity(), R.layout.row_rensou, rensouHistoryList);
+        RensouArrayAdapter adapter = new RensouArrayAdapter(getActivity(), R.layout.row_rensou, list);
 
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
@@ -67,26 +62,5 @@ public class RensouListFragment extends Fragment {
     @SuppressWarnings("unchecked")
     private ArrayList<Rensou> getSerializableBundleList(Bundle bundle) {
         return (ArrayList<Rensou>) bundle.getSerializable(BUNDLE_LIST);
-    }
-    
-    // 連想リスト → 連想履歴リスト
-    private List<RensouHistory> makeResnouHistoryList(List<Rensou> list) {
-        List<RensouHistory> rensouHistoryList = new ArrayList<RensouHistory>();
-        Rensou to = null;
-        for (int i = 0, len = list.size(); i < len; i++) {
-            Rensou r = (Rensou) list.get(i);
-
-            if (to == null) {
-                // 1 つ目は元ネタがわからないので連想履歴は作成しない。
-                to = r;
-                continue;
-            }
-        
-            RensouHistory rh = new RensouHistory(to, r);
-            rensouHistoryList.add(rh);
-            to = r;  // 次の連想履歴用に保持
-        }
-        
-        return rensouHistoryList;
     }
 }

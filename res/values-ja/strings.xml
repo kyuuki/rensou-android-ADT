@@ -27,7 +27,7 @@
 
     <!-- アプリ情報 など-->
     <string name="how_to_play">遊び方\n\nキーワードから連想されることばを投稿して遊ぶゲームです。\n他の人が投稿した連想ワードとのつながりを見てニヤニヤしましょう。\n変な言葉は投稿しないようにね！</string>
-    <string name="license_infomation">このアプリでは、以下のライブラリを使用しています。\n\nVolley\nhttps://android.googlesource.com/platform/frameworks/volley/\nCopyright (C) 2011 The Android Open Source Project\n\nApache Commons Lang\nhttp://commons.apache.org/proper/commons-lang/\nCopyright (C) 2001-2013 The Apache Software Foundation. All Rights Reserved.</string>
+    <string name="license_infomation">このアプリでは、以下のライブラリを使用しています。\n\nVolley\nhttps://android.googlesource.com/platform/frameworks/volley/\nCopyright &#169; 2011 The Android Open Source Project\n\nApache Commons Lang\nhttp://commons.apache.org/proper/commons-lang/\nCopyright &#169; 2001–2013 The Apache Software Foundation. All Rights Reserved.</string>
     <string name="request_email">kyuuki.japan+rensou@gmail.com</string>
     <string name="request_subject">【連想げーむ】 お問い合わせ</string>
     <string name="request_text">------\nアプリバージョン: %1$s\nAndroid バージョン: %2$s\n機種名: %3$s\n------\n\n</string>
@@ -35,20 +35,4 @@
 
     <!-- 共通エラーメッセージ -->
     <string name="error_communication">通信エラー</string>
-    
-    <!-- ダミーデータ -->
-    <string name="dummy_keyword">竹島</string>
-    <string-array name="dummy_list"><!-- 上が最新 -->
-        <item>原辰徳</item>
-        <item>ハラ</item>
-        <item>ニコル</item>
-        <item>ジヨン</item>
-        <item>ギュリ</item>
-        <item>スンヨン</item>
-        <item>KARA</item>
-        <item>少女時代</item>
-        <item>韓国</item>
-        <item>独島</item>
-        <item>竹島</item>
-    </string-array>
 </resources>

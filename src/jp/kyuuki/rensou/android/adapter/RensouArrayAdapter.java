@@ -1,9 +1,11 @@
-package jp.kyuuki.rensou.android;
+package jp.kyuuki.rensou.android.adapter;
 
 import java.util.Date;
 import java.util.List;
 
-import jp.kyuuki.rensou.android.model.RensouHistory;
+import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.RensouUtils;
+import jp.kyuuki.rensou.android.model.Rensou;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,14 +15,14 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
+public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
     LayoutInflater mInflater;
     
     // 日付のフォーマット → 多言語化により Andorid 標準の表示形式にあわせることにした。
     //@SuppressLint("SimpleDateFormat")
     //static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
-    public RensouArrayAdapter(Context context, int textViewResourceId, List<RensouHistory> list) {
+    public RensouArrayAdapter(Context context, int textViewResourceId, List<Rensou> list) {
         super(context, textViewResourceId, list);
         // TODO Auto-generated constructor stub
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -39,36 +41,24 @@ public class RensouArrayAdapter extends ArrayAdapter<RensouHistory> {
             view = mInflater.inflate(R.layout.row_rensou, null);
         }
         
-        RensouHistory rensouHistory = getItem(position);
+        Rensou rensou = getItem(position);
         
         RelativeLayout rowRensouLayout = (RelativeLayout) view.findViewById(R.id.rowRensouLayout);
         TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeText);
         TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
         
         // View
-        if (rensouHistory.getRensou() != null) {
+        if (rensou.getOldKeyword() != null) {
             // 連想結果表示テキスト
-            StringBuffer buf = new StringBuffer();
-            buf.append("<font color='#ff0000'>");
-            buf.append(rensouHistory.getSource().getKeyword());
-            buf.append("</font>");
-            buf.append(" ");
-            buf.append("<small>");
-            buf.append(getContext().getString(R.string.list_rensou_related));
-            buf.append("</small> ");
-            buf.append(" ");
-            buf.append("<font color='#ff0000'>");
-            buf.append(rensouHistory.getRensou().getKeyword());
-            buf.append("</font> ");
-            rensouText.setText(Html.fromHtml(buf.toString()));
+            rensouText.setText(Html.fromHtml(RensouUtils.rensouToHtml(rensou, getContext())));
 
             // 投稿日付
             java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getContext());
             java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getContext());
 
-            if (rensouHistory.getRensou().getCreatedAt() != null) {
+            if (rensou.getCreatedAt() != null) {
                 //dateTimeText.setText(sdf.format(rensouHistory.getRensou().getCreatedAt()));
-                Date d = rensouHistory.getRensou().getCreatedAt();
+                Date d = rensou.getCreatedAt();
                 dateTimeText.setText(dateFormat.format(d) + " " + timeFormat.format(d));
             }
 

@@ -58,6 +58,7 @@ public abstract class BaseActivity extends FragmentActivity {
         switch (item.getItemId()) {
         case R.id.action_ranking:
             // ランキング画面
+            EasyTracker.getTracker().sendEvent(Analysis.GA_EC_UI_ACTION, Analysis.GA_EA_MENU_RANKING, null, null);
             intent = new Intent(this, RankingActivity.class);
             startActivity(intent);
             return true;

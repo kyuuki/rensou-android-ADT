@@ -23,11 +23,11 @@ public class Rank implements Serializable {
     private static final long serialVersionUID = -6029400733997760777L;
 
     private int rank;
-    private RensouHistory rensouHistory;
+    private Rensou rensou;
 
-    public Rank(int rank, RensouHistory rh) {
+    public Rank(int rank, Rensou rensou) {
         this.rank = rank;
-        this.rensouHistory = rh;
+        this.rensou = rensou;
     }
     
     public int getRank() {
@@ -38,13 +38,15 @@ public class Rank implements Serializable {
         this.rank = rank;
     }
 
-    public RensouHistory getRensouHistory() {
-        return rensouHistory;
+    public Rensou getRensou() {
+        return rensou;
     }
 
-    public void setRensouHistory(RensouHistory rensouHistory) {
-        this.rensouHistory = rensouHistory;
+    public void setRensou(Rensou rensou) {
+        this.rensou = rensou;
     }
+
+    // 以下、ダミー用
 
     public static List<Rank> createDummyRanking(Resources resources) throws JSONException, IOException {
         // JSON 読み込み
@@ -57,14 +59,11 @@ public class Rank implements Serializable {
             JSONObject o = array.getJSONObject(i);
             
             Rensou r = new Rensou();
+            r.setOldKeyword(o.getString("old_keyword"));
             r.setKeyword(o.getString("keyword"));
             r.setCreatedAt(RensouApi.parseDate(o.getString("created_at")));
             r.setFavorite(o.getInt("favorite"));
-            Rensou s = new Rensou();
-            s.setKeyword(o.getString("old_keyword"));
-            
-            RensouHistory rh = new RensouHistory(r, s);
-            Rank rank = new Rank(i + 1, rh);
+            Rank rank = new Rank(i + 1, r);
             ranking.add(rank);
         }
         

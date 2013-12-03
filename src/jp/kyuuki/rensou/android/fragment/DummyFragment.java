@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * ダミーかけら。
+ * ダミーフラグメント。
  * 
  * - 後で動的に差し替えるとわかっている Fragment をレイアウトファイルに記述しておくため。
  *   (Fragment クラスを指定しないとエラーになる)
