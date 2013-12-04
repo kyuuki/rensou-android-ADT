@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import jp.kyuuki.rensou.android.Config;
+import jp.kyuuki.rensou.android.model.Rank;
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.model.User;
 
@@ -93,6 +94,35 @@ public class RensouApi {
         return json;
     }
     
+    // GET rensous/ranking
+    public static String getGetUrlRensousRanking() {
+        return BASE_URL + "/rensous/ranking";
+    }
+    
+    // 現状、レスポンスは連想のリスト
+    public static ArrayList<Rank> json2Ranking(JSONArray a) {
+        ArrayList<Rank> list = new ArrayList<Rank>();
+        for (int i = 0, len = a.length(); i < len; i++) {
+            try {
+                JSONObject o = a.getJSONObject(i);
+                
+                Rensou r = RensouApi.json2Rensou(o);
+                Rank rank = new Rank(i + 1, r);
+                list.add(rank);
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return null;
+            }
+        }
+        
+        return list;
+    }
+    
+    /*
+     * API 共通モデル
+     */
+
     public static ArrayList<Rensou> json2Rensous(JSONArray a) {
         ArrayList<Rensou> list = new ArrayList<Rensou>();
         for (int i = 0, len = a.length(); i < len; i++) {
@@ -118,6 +148,7 @@ public class RensouApi {
             rensou.setUserId(o.getLong("user_id"));
             rensou.setOldKeyword(o.getString("old_keyword"));
             rensou.setKeyword(o.getString("keyword"));
+            rensou.setFavorite(o.getInt("favorite"));
             Date d = parseDate(o.getString("created_at"));
             rensou.setCreatedAt(d);
         } catch (JSONException e) {

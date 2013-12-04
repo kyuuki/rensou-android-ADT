@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MenuItem;
+mport android.view.MenuItem;
 
 /**
  * ランキング画面。
@@ -26,12 +26,17 @@ public class RankingActivity extends BaseActivity {
         /*
          * フラグメント差し替え
          */
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction t = fm.beginTransaction();
-        Fragment fragment = new RankingListFragment();
+        // http://www.garunimo.com/program/p17.xhtml
+        if (savedInstanceState == null) {
+            Fragment fragment = new RankingListFragment();
 
-        t.replace(R.id.root, fragment);
-        t.commit();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction t = fm.beginTransaction();
+
+            t.replace(R.id.root, fragment);
+
+            t.commit();
+        }
     }
     
     @Override
