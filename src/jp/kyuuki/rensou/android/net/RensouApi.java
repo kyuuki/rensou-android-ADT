@@ -23,6 +23,7 @@ import jp.kyuuki.rensou.android.model.User;
  * - 通信ライブラリには依存したくない。
  */
 public class RensouApi {
+    // 書き換えられることがあるけど、ほぼ定数のイメージなので大文字にしておく。
     public static String BASE_URL = Config.API_BASE_URL;
     
     // http://www.adakoda.com/adakoda/2010/02/android-iso-8601-parse.html

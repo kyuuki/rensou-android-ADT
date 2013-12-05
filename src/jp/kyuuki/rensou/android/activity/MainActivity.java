@@ -5,10 +5,10 @@ import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.fragment.DummyFragment;
 import jp.kyuuki.rensou.android.fragment.PostRensouFragment;
 import jp.kyuuki.rensou.android.model.User;
+import jp.kyuuki.rensou.android.net.InitialData;
 import jp.kyuuki.rensou.android.net.RensouApi;
 import jp.kyuuki.rensou.android.net.VolleyUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
@@ -88,13 +88,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // 自動でソフトキーボードが出るのを防ぐ
+
+        // 自動でソフトキーボードが出るのを防ぐ。
         // http://y-anz-m.blogspot.jp/2010/05/android_17.html
         getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
-        
+
         setContentView(R.layout.activity_main);
-        
+
         // AdView をリソースとしてルックアップしてリクエストを読み込む。
         // https://developers.google.com/mobile-ads-sdk/docs/android/banner_xml?hl=ja
         AdView adView = (AdView)this.findViewById(R.id.adView);
@@ -118,20 +118,22 @@ public class MainActivity extends BaseActivity {
             state.run(this);
         }
     }
+
+    String BUNDLE_KEY_STATE = "STATE";
     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         
         // http://qiita.com/amay077/items/097f54b7dee586fadc99
-        outState.putInt("state", state.ordinal());
+        outState.putInt(BUNDLE_KEY_STATE, state.ordinal());
     };
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         
-        int index = savedInstanceState.getInt("state");
+        int index = savedInstanceState.getInt(BUNDLE_KEY_STATE);
         this.state = State.values()[index];
     };
     
@@ -139,17 +141,24 @@ public class MainActivity extends BaseActivity {
         String url = Config.INITIAL_DATA_URL;
 
         JsonObjectRequest request = new JsonObjectRequest(Method.GET, url, null,
+
             new Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.v("HTTP", "body is " + response.toString());
-                    String message;
-                    try {
-                        message = response.getString("message");
-                    } catch (JSONException e) {
-                        // message が含まれていない場合 (JSON 構文エラーは ErrorListener が捕捉する)
-                        e.printStackTrace();
-                        message = null;
+                    
+                    InitialData data = InitialData.createInitialData(response);
+                    
+                    String message = null;
+                    String apiBaseUrl = null;
+                    if (data != null) {
+                        message = data.getMessege();
+                        apiBaseUrl = data.getApiBaseUrl();
+                    }
+
+                    // 初期データに API ベース URL が入っていたら、デフォルトを上書き。
+                    if (apiBaseUrl != null) {
+                        RensouApi.BASE_URL = apiBaseUrl;
                     }
                     
                     if (message != null) {
@@ -166,9 +175,9 @@ public class MainActivity extends BaseActivity {
             new ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    //Toast.makeText(MainActivity.this, getString(R.string.error_communication), Toast.LENGTH_LONG).show();
-                    Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                    // TODO: 通信エラーの時はどうする？
+                    // 初期データが取得できなくても、何もなかったかのようにふるまう
+                    state = state.accept(MainActivity.this);
+                    state.run(MainActivity.this);
                 }
             });
 
