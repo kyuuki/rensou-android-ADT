@@ -17,10 +17,20 @@
         <FrameLayout
             android:id="@+id/mainFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </FrameLayout>
     </ScrollView>
 
+    <!-- nend -->
+    <net.nend.android.NendAdView
+        android:id="@+id/nend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainScroll"
+        NendApiKey="7bfc8424516edad1ecc411bfda0417cbbdbf37c0"
+        NendSpotId="105641" />
+    
+    <!-- AdMob
     <com.google.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
@@ -29,4 +39,5 @@
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-5396037533357593/4690387868"
         ads:loadAdOnCreate="true" />
+    -->
 </RelativeLayout>

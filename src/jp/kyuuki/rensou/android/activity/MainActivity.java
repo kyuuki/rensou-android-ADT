@@ -97,10 +97,10 @@ public class MainActivity extends BaseActivity {
 
         // AdView をリソースとしてルックアップしてリクエストを読み込む。
         // https://developers.google.com/mobile-ads-sdk/docs/android/banner_xml?hl=ja
-        AdView adView = (AdView)this.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest();
-        //adRequest.addTestDevice("6E5BC489C3B529363F063C3C74151BC7");
-        adView.loadAd(adRequest);
+//        AdView adView = (AdView)this.findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest();
+//        //adRequest.addTestDevice("6E5BC489C3B529363F063C3C74151BC7");
+//        adView.loadAd(adRequest);
 
         // onCreate で作っちゃっていい？null に戻っちゃうことない？
         mRequestQueue = VolleyUtils.getRequestQueue(this);
