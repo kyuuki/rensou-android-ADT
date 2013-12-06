@@ -22,11 +22,13 @@
     </ScrollView>
 
     <!-- nend -->
+
     <net.nend.android.NendAdView
         android:id="@+id/nend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mainScroll"
+        android:layout_centerHorizontal="true"
         NendApiKey="7bfc8424516edad1ecc411bfda0417cbbdbf37c0"
         NendSpotId="105641" />
     
