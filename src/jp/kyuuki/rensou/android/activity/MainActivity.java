@@ -28,8 +28,8 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
+//import com.google.ads.AdRequest;
+//import com.google.ads.AdView;
 
 public class MainActivity extends BaseActivity {
 

@@ -57,7 +57,7 @@ public class RankingArrayAdapter extends ArrayAdapter<Rank> {
         ImageView rankImage = (ImageView) view.findViewById(R.id.rankImage);
         TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
         TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeText);
-        TextView favoriteTextView = (TextView) view.findViewById(R.id.favoriteText);
+        TextView favoriteText = (TextView) view.findViewById(R.id.favoriteText);
         
         // View
         if (rensou != null) {
@@ -77,7 +77,7 @@ public class RankingArrayAdapter extends ArrayAdapter<Rank> {
             }
 
             // いいね！数
-            favoriteTextView.setText(getContext().getString(R.string.ranking_like_count, rensou.getFavorite()));
+            favoriteText.setText(getContext().getString(R.string.ranking_like_count, rensou.getFavorite()));
         }
 
         return view;

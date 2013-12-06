@@ -21,7 +21,8 @@
     
     <!-- 連想一覧画面 -->
     <string name="list_rensou_related">reminds you of</string>
-
+    <string name="list_rensou_like_count">%1$d</string>
+    
     <!-- ランキング画面 -->
     <string name="ranking_like_count">Like %1$d</string>
 

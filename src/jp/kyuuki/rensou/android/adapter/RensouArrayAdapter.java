@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +47,9 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
         RelativeLayout rowRensouLayout = (RelativeLayout) view.findViewById(R.id.rowRensouLayout);
         TextView dateTimeText = (TextView) view.findViewById(R.id.dateTimeText);
         TextView rensouText = (TextView) view.findViewById(R.id.rensouText);
+        ImageView spamImage = (ImageView) view.findViewById(R.id.spamImage);
+        ImageView likeImage = (ImageView) view.findViewById(R.id.likeImage);
+        TextView favoriteCountText = (TextView) view.findViewById(R.id.favoriteCountText);
         
         // View
         if (rensou.getOldKeyword() != null) {
@@ -61,6 +65,9 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
                 Date d = rensou.getCreatedAt();
                 dateTimeText.setText(dateFormat.format(d) + " " + timeFormat.format(d));
             }
+            
+            // いいね！数
+            favoriteCountText.setText(getContext().getString(R.string.list_rensou_like_count, rensou.getFavorite()));
 
             // 1 行おきに背景を変える
 //            int left   = rowPaddingLeft   > 0 ? rowPaddingLeft   : rowRensouLayout.getPaddingLeft();
@@ -70,7 +77,7 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
             // TODO: ↑なぜか値が一定しない。
             float density = getContext().getResources().getDisplayMetrics().density;
             int left   = (int) (density * 30);
-            int top    = (int) (density * 15);
+            int top    = (int) (density * 10);
             int right  = (int) (density * 40);
             int bottom = (int) (density * 15);
             if (position % 2 == 0) {
