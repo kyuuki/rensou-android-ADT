@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 // JSONObject -> JSONArray がなかったので、JsonObjectRequest をコピーして自作。将来的には追加になりそう。
+// 追加でレスポンスがない場合も正常に終了するようにした。
 /**
  * A request for retrieving a {@link JSONObject} response body at a given URL, allowing for an
  * optional {@link JSONObject} to be passed in as part of the request body.
@@ -50,6 +51,10 @@ public class JsonObjectArrayRequest extends JsonRequest<JSONArray> {
 
     @Override
     protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+        if (response.data.length == 0) {
+            return Response.success(new JSONArray(), HttpHeaderParser.parseCacheHeaders(response));
+        }
+        
         try {
             String jsonString =
                 new String(response.data, HttpHeaderParser.parseCharset(response.headers));

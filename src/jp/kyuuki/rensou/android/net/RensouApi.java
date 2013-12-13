@@ -94,7 +94,17 @@ public class RensouApi {
         
         return json;
     }
+
+    // POST rensous/:rensou_id/like
+    public static String getPostUrlRensousLike(long id) {
+        return BASE_URL + "/rensous/" + id + "/like";
+    }
     
+    // DELETE rensous/:rensou_id/like
+    public static String getDeleteUrlRensousLike(long id) {
+        return BASE_URL + "/rensous/" + id + "/like";
+    }
+
     // GET rensous/ranking
     public static String getGetUrlRensousRanking() {
         return BASE_URL + "/rensous/ranking";
