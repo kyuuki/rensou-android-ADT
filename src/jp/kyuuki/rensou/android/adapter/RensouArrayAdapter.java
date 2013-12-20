@@ -185,6 +185,8 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
         public void onResponse(JSONArray response) {
             Log.v("HTTP", "body is " + response);
             
+            Context context = mInflater.getContext();
+            
             /*
              * 内部状態更新
              */
@@ -196,7 +198,7 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
             }
 
             // いいね！履歴
-            MyLikes likes = MyLikes.getInstance(mInflater.getContext());  // TODO: 将来的には連想モデルに含めた方がいいかも
+            MyLikes likes = MyLikes.getInstance(context);  // TODO: 将来的には連想モデルに含めた方がいいかも
             if (isLike) {
                 likes.like(rensou.getId());
             } else {
@@ -207,12 +209,12 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
              * 表示更新
              */
             if (holder.rensouId == rensou.getId()) {  // スクロールしてしまって、別連想を表示していないかチェック
-                updateRensouView(mInflater.getContext(), holder, rensou);
+                updateRensouView(context, holder, rensou);
             }
 
             // いいね！のときだけトースト表示 (取り消しは表示しない)
             if (isLike) {
-                Toast.makeText(mInflater.getContext(), "いいね！", Toast.LENGTH_SHORT).show();  // TODO: リソース化
+                Toast.makeText(context, "いいね！", Toast.LENGTH_SHORT).show();  // TODO: リソース化
             }
         }
 

@@ -2,6 +2,8 @@ package jp.kyuuki.rensou.android.model;
 
 import java.util.HashSet;
 
+import jp.kyuuki.rensou.android.Preference;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -14,15 +16,16 @@ import android.content.SharedPreferences;
  * - 自分がいいね！した履歴をアプリ側で持っておく。
  */
 public class MyLikes {
-    HashSet<Long> history;
+    HashSet<Long> history;  // いいね！した連想の ID を集合で保持
+
     SharedPreferences settings;  // 永続化のため、作成時に保存しておく
     
-    private static MyLikes instance;  // メモリ不足で初期化されて null になる可能性あり
+    private static MyLikes instance;  // メモリ不足の時に初期化されて null になる可能性あり
     
     private MyLikes(Context context) {
-        this.settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        String likesJson = this.settings.getString(KEY_MY_LIKES, null);
-
+        this.settings = context.getSharedPreferences(Preference.NAME, Context.MODE_PRIVATE);
+        
+        String likesJson = this.settings.getString(Preference.KEY_MY_LIKES, null);
         if (likesJson == null) {
             likesJson = "[]";
         }
@@ -41,14 +44,11 @@ public class MyLikes {
                 long id = array.getLong(i);
                 this.history.add(id);
             } catch (JSONException e) {
-                e.printStackTrace();
+                e.printStackTrace();  // TODO: 出力するとこ決める
+                // 変な値が入っていても、とりあえず無視。
             }
         }
     }
-
-    // 永続化
-    private static final String PREFERENCE_NAME = "Rensou";  // TODO: 永続化を一箇所に
-    private static final String KEY_MY_LIKES = "MyLikes";
 
     public static MyLikes getInstance(Context context) {
         if (instance == null) {
@@ -76,7 +76,7 @@ public class MyLikes {
         JSONArray array = new JSONArray(this.history);
         
         SharedPreferences.Editor edit = this.settings.edit();
-        edit.putString(KEY_MY_LIKES, array.toString());
+        edit.putString(Preference.KEY_MY_LIKES, array.toString());
         edit.commit();
     }
 }
