@@ -210,7 +210,10 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
                 updateRensouView(mInflater.getContext(), holder, rensou);
             }
 
-            Toast.makeText(mInflater.getContext(), "いいね！", Toast.LENGTH_LONG).show();
+            // いいね！のときだけトースト表示 (取り消しは表示しない)
+            if (isLike) {
+                Toast.makeText(mInflater.getContext(), "いいね！", Toast.LENGTH_SHORT).show();  // TODO: リソース化
+            }
         }
 
         @Override
