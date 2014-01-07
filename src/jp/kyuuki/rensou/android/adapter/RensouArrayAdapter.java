@@ -152,7 +152,7 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
             }
         });
     }
-    
+
     // ViewHolder パターン
     private static class ViewHolder {
         RelativeLayout rowRensouLayout;
@@ -214,7 +214,7 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
 
             // いいね！のときだけトースト表示 (取り消しは表示しない)
             if (isLike) {
-                Toast.makeText(context, "いいね！", Toast.LENGTH_SHORT).show();  // TODO: リソース化
+                Toast.makeText(context, context.getString(R.string.list_rensou_like), Toast.LENGTH_SHORT).show();
             }
         }
 
