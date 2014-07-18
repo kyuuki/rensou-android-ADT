@@ -46,7 +46,7 @@ public class PostResultActivity extends BaseActivity {
         bundle.putSerializable(RensouListFragment.BUNDLE_LIST, list);
         fragment.setArguments(bundle);
 
-        t.replace(R.id.root, fragment);
+        t.replace(R.id.rensouListFragment, fragment);
         t.commit();
     }
     

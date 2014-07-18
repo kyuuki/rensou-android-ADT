@@ -33,7 +33,7 @@ public class RankingActivity extends BaseActivity {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction t = fm.beginTransaction();
 
-            t.replace(R.id.root, fragment);
+            t.replace(R.id.rensouListFragment, fragment);
 
             t.commit();
         }
