@@ -19,9 +19,8 @@
         android:layout_centerHorizontal="true" 
         NendApiKey="7bfc8424516edad1ecc411bfda0417cbbdbf37c0"
         NendSpotId="105641" />
-    
-    <fragment
-        android:name="jp.kyuuki.rensou.android.fragment.DummyFragment"
+
+    <RelativeLayout
         android:id="@+id/rensouListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

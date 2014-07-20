@@ -17,16 +17,23 @@ import android.widget.ListView;
  * 連想リストフラグメント。
  */
 public class RensouListFragment extends Fragment {
+    private static final String TAG = RensouListFragment.class.getName();
+
     // 引数のキー
     public static final String BUNDLE_LIST = "list";
     
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate(): " + this.hashCode());
+
+        // このフラグメントは回転しても作り直さない
+        setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.v(TAG, "onCreateView(): " + this.hashCode());
         View v = inflater.inflate(R.layout.fragment_rensou_list, container, false);
 
         // 引数処理
@@ -54,9 +61,16 @@ public class RensouListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.v(TAG, "onStart(): " + this.hashCode());
         // Fragment のページビューを取ると Activity と混乱するので、このアプリでは取らない。
 //        EasyTracker.getInstance().setContext(getActivity());
 //        EasyTracker.getTracker().sendView("RensouListFragment");
+    }
+    
+    @Override
+    public void onStop() {
+        Log.v(TAG, "onStop(): " + this.hashCode());
+        super.onStart();
     }
 
     @SuppressWarnings("unchecked")

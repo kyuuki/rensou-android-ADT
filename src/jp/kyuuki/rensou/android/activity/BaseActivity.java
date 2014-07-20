@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,16 +23,19 @@ import com.google.analytics.tracking.android.EasyTracker;
  * 全画面共通。
  */
 public abstract class BaseActivity extends FragmentActivity {
+    private static final String TAG = BaseActivity.class.getName();
 
     @Override
     public void onStart() {
         super.onStart();
+        Log.v(TAG, "onStart(): " + this.hashCode());
         EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStart();
+        Log.v(TAG, "onStop(): " + this.hashCode());
         EasyTracker.getInstance().activityStop(this);
     }
     
