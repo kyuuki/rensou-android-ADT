@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.adapter.RensouArrayAdapter;
 import jp.kyuuki.rensou.android.model.Rensou;
+import jp.kyuuki.rensou.android.view.TouchChanger;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
@@ -19,6 +22,8 @@ import android.widget.ListView;
 public class RensouListFragment extends Fragment {
     // 引数のキー
     public static final String BUNDLE_LIST = "list";
+    
+    final TouchChanger changer = new TouchChanger();
     
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -47,6 +52,13 @@ public class RensouListFragment extends Fragment {
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setScrollingCacheEnabled(false);  // Xperia ray などでスクロール時に背景が白くなるのに対処
+        listView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                changer.setOnTouch(event);
+                return false;
+            }
+        });
 
         return v;
     }
