@@ -11,19 +11,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 
 /**
  * 投稿結果画面。
  */
 public class PostResultActivity extends BaseActivity {
-    
+    private static final String TAG = PostResultActivity.class.getName();
+
     // 引数のキー
     public static final String INTENT_EXTRA_LIST = "list";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v(TAG, "onCreate()");
         setContentView(R.layout.activity_post_result);
 
         // 引数処理
@@ -34,20 +37,23 @@ public class PostResultActivity extends BaseActivity {
         // アクションバー
         setDisplayHomeAsUpEnabled(true);
 
-        /*
-         * フラグメント差し替え
-         */
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction t = fm.beginTransaction();
-        RensouListFragment fragment = new RensouListFragment();
- 
-        // フラグメントに渡す値をセット
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(RensouListFragment.BUNDLE_LIST, list);
-        fragment.setArguments(bundle);
+        if (savedInstanceState == null) {
+            Log.v(TAG, "replace Fragment");
+            /*
+             * フラグメント差し替え
+             */
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction t = fm.beginTransaction();
+            RensouListFragment fragment = new RensouListFragment();
 
-        t.replace(R.id.root, fragment);
-        t.commit();
+            // フラグメントに渡す値をセット
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(RensouListFragment.BUNDLE_LIST, list);
+            fragment.setArguments(bundle);
+
+            t.replace(R.id.rensouListFragment, fragment);
+            t.commit();
+        }
     }
     
     @Override
