@@ -5,25 +5,32 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/action_ranking"
-        android:icon="@drawable/navigation_ranking"/>
+        android:icon="@drawable/navigation_ranking" />
 
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/action_about"
-        android:icon="@drawable/navigation_info"/>
+        android:icon="@drawable/navigation_info" />
 
     <item
         android:id="@+id/action_license"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_license"/>
+        android:title="@string/action_license" />
 
     <item
         android:id="@+id/action_request"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_request"/>
+        android:title="@string/action_request" />
+
+    <item
+        android:id="@+id/action_debug"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_debug" 
+        android:visible="false" />
 
 </menu>

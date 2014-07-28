@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.adapter.RensouArrayAdapter;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.view.TouchChanger;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class RensouListFragment extends Fragment {
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(TAG, "onCreate(): " + this.hashCode());
+        Logger.v(TAG, "onCreate(): " + this.hashCode());
 
         // このフラグメントは回転しても作り直さない
         setRetainInstance(true);
@@ -38,7 +39,7 @@ public class RensouListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.v(TAG, "onCreateView(): " + this.hashCode());
+        Logger.v(TAG, "onCreateView(): " + this.hashCode());
         View v = inflater.inflate(R.layout.fragment_rensou_list, container, false);
 
         // 引数処理
@@ -73,7 +74,7 @@ public class RensouListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.v(TAG, "onStart(): " + this.hashCode());
+        Logger.v(TAG, "onStart(): " + this.hashCode());
         // Fragment のページビューを取ると Activity と混乱するので、このアプリでは取らない。
 //        EasyTracker.getInstance().setContext(getActivity());
 //        EasyTracker.getTracker().sendView("RensouListFragment");
@@ -81,7 +82,7 @@ public class RensouListFragment extends Fragment {
     
     @Override
     public void onStop() {
-        Log.v(TAG, "onStop(): " + this.hashCode());
+        Logger.v(TAG, "onStop(): " + this.hashCode());
         super.onStart();
     }
 

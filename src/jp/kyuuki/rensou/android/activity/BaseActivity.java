@@ -2,6 +2,7 @@ package jp.kyuuki.rensou.android.activity;
 
 import jp.kyuuki.rensou.android.Analysis;
 import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.common.Utils;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +14,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -28,14 +28,14 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.v(TAG, "onStart(): " + this.hashCode());
+        Logger.v(TAG, "onStart(): " + this.hashCode());
         EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     public void onStop() {
         super.onStart();
-        Log.v(TAG, "onStop(): " + this.hashCode());
+        Logger.v(TAG, "onStop(): " + this.hashCode());
         EasyTracker.getInstance().activityStop(this);
     }
     
@@ -90,6 +90,9 @@ public abstract class BaseActivity extends FragmentActivity {
             intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.request_text, 
                     Utils.getVersionName(this), Build.VERSION.RELEASE, Build.MANUFACTURER + " " + Build.MODEL));
             startActivity(intent);
+        case R.id.action_debug:
+            Intent i = new Intent(this, AboutActivity.class);
+            startActivity(i);
         }
         
         return false;

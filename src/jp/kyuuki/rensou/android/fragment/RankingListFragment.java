@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.adapter.RankingArrayAdapter;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.model.Rank;
 import jp.kyuuki.rensou.android.net.RensouApi;
 import jp.kyuuki.rensou.android.net.VolleyUtils;
@@ -101,7 +102,7 @@ public class RankingListFragment extends Fragment {
             progressDialog.dismiss();
             progressDialog = null;
             
-            Log.v("HTTP", "body is " + response);
+            Logger.v("HTTP", "body is " + response);
 
             mRankList = RensouApi.json2Ranking(response);
             // DUMMY

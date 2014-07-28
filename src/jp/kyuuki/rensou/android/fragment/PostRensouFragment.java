@@ -6,6 +6,7 @@ import java.util.Locale;
 import jp.kyuuki.rensou.android.Analysis;
 import jp.kyuuki.rensou.android.R;
 import jp.kyuuki.rensou.android.activity.PostResultActivity;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.model.User;
 import jp.kyuuki.rensou.android.net.RensouApi;
@@ -105,7 +106,7 @@ public class PostRensouFragment extends Fragment {
                             }
                             progressDialog = null;
 
-                            Log.v("HTTP", "body is " + response);
+                            Logger.v("HTTP", "body is " + response);
 
                             ArrayList<Rensou> list = RensouApi.json2Rensous(response);
                             
@@ -183,7 +184,7 @@ public class PostRensouFragment extends Fragment {
                     }
                     progressDialog = null;
 
-                    Log.v("HTTP", "body is " + response.toString());
+                    Logger.e("HTTP", "body is " + response.toString());
                     Rensou rensou = RensouApi.json2Rensou(response);
                     
                     // DUMMY

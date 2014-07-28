@@ -2,6 +2,7 @@ package jp.kyuuki.rensou.android.activity;
 
 import jp.kyuuki.rensou.android.Config;
 import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.fragment.DummyFragment;
 import jp.kyuuki.rensou.android.fragment.PostRensouFragment;
 import jp.kyuuki.rensou.android.model.User;
@@ -145,7 +146,7 @@ public class MainActivity extends BaseActivity {
             new Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.v("HTTP", "body is " + response.toString());
+                    Logger.e("HTTP", "body is " + response.toString());
                     
                     InitialData data = InitialData.createInitialData(response);
                     
@@ -192,7 +193,7 @@ public class MainActivity extends BaseActivity {
             new Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.v("HTTP", "body is " + response.toString());
+                    Logger.e("HTTP", "body is " + response.toString());
                     User user = RensouApi.json2User(response);
                     user.saveMyUser(MainActivity.this);  // 永続化
                     
@@ -234,10 +235,10 @@ public class MainActivity extends BaseActivity {
         }  
 
         @Override 
-        public Dialog onCreateDialog(Bundle savedInstanceState) {  
-            String title = getArguments().getString("title");  
-            String message = getArguments().getString("message");  
-  
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            String title = getArguments().getString("title");
+            String message = getArguments().getString("message");
+
             return new AlertDialog.Builder(getActivity())
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(title)

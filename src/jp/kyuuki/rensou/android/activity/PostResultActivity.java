@@ -3,6 +3,7 @@ package jp.kyuuki.rensou.android.activity;
 import java.util.ArrayList;
 
 import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.fragment.RensouListFragment;
 import jp.kyuuki.rensou.android.model.Rensou;
 import android.annotation.SuppressLint;
@@ -26,7 +27,7 @@ public class PostResultActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(TAG, "onCreate()");
+        Logger.v(TAG, "onCreate()");
         setContentView(R.layout.activity_post_result);
 
         // 引数処理
@@ -38,7 +39,7 @@ public class PostResultActivity extends BaseActivity {
         setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            Log.v(TAG, "replace Fragment");
+            Logger.v(TAG, "replace Fragment");
             /*
              * フラグメント差し替え
              */

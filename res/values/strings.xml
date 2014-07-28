@@ -7,6 +7,7 @@
     <string name="action_about">About This App</string>
     <string name="action_license">About License</string>
     <string name="action_request">Request / Bug report</string>
+    <string name="action_debug">Debug</string>
     <string name="activity_result_title">Association Before</string>
     <string name="activity_ranking_title">Favorite Ranking</string>
     

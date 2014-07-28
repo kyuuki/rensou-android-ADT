@@ -34,6 +34,10 @@
             android:label="@string/activity_ranking_title"
             android:theme="@style/NormalActivityTheme">
         </activity>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:theme="@style/NormalActivityTheme">
+        </activity>
         
         <!--  AdMob Ads SDK -->
         <activity android:name="com.google.ads.AdActivity"

@@ -13,6 +13,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.JsonObjectArrayRequest;
 
 import jp.kyuuki.rensou.android.R;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.common.RensouUtils;
 import jp.kyuuki.rensou.android.model.MyLikes;
 import jp.kyuuki.rensou.android.model.Rensou;
@@ -183,7 +184,7 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
 
         @Override
         public void onResponse(JSONArray response) {
-            Log.v("HTTP", "body is " + response);
+            Logger.v("HTTP", "body is " + response);
             
             Context context = mInflater.getContext();
             
@@ -220,7 +221,7 @@ public class RensouArrayAdapter extends ArrayAdapter<Rensou> {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.v("HTTP", "error is " + error);
+            Logger.v("HTTP", "error is " + error);
             Toast.makeText(mInflater.getContext(), mInflater.getContext().getString(R.string.error_communication), Toast.LENGTH_LONG).show();
 
             /*
