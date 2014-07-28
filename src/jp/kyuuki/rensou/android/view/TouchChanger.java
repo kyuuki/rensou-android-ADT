@@ -4,8 +4,8 @@ import android.view.MotionEvent;
 
 // http://d.hatena.ne.jp/miruki332/20110928/1317186720
 public class TouchChanger {
-    private float _horizontalSpeedRate = 1.5f;
-    private float _verticalSpeedRate = 1.5f;
+    private float _horizontalSpeedRate = 1.8f;
+    private float _verticalSpeedRate = 1.8f;
     private float _downX;
     private float _downY;
 

@@ -7,6 +7,7 @@ import jp.kyuuki.rensou.android.adapter.RankingArrayAdapter;
 import jp.kyuuki.rensou.android.model.Rank;
 import jp.kyuuki.rensou.android.net.RensouApi;
 import jp.kyuuki.rensou.android.net.VolleyUtils;
+import jp.kyuuki.rensou.android.view.TouchChanger;
 
 import org.json.JSONArray;
 
@@ -17,8 +18,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,6 +43,7 @@ public class RankingListFragment extends Fragment {
 
     // View
     private ListView mList;  // リスト表示
+    final TouchChanger changer = new TouchChanger();
 
     ProgressDialogFragment progressDialog = null;  // 通信中ダイアログ
 
@@ -76,6 +80,13 @@ public class RankingListFragment extends Fragment {
         mList = (ListView) v.findViewById(R.id.listView);
         mList.setScrollingCacheEnabled(false);  // Xperia ray などでスクロール時に背景が白くなるのに対処
         mList.setAdapter(mAdapter);  // 既存のアダプタを再利用
+        mList.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                changer.setOnTouch(event);
+                return false;
+            }
+        });
 
         return v;
     }
