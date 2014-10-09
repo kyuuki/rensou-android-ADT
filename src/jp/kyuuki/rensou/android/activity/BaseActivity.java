@@ -90,9 +90,11 @@ public abstract class BaseActivity extends FragmentActivity {
             intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.request_text, 
                     Utils.getVersionName(this), Build.VERSION.RELEASE, Build.MANUFACTURER + " " + Build.MODEL));
             startActivity(intent);
+            return true;
         case R.id.action_debug:
             Intent i = new Intent(this, AboutActivity.class);
             startActivity(i);
+            return true;
         }
         
         return false;
