@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Toast;
 
@@ -37,6 +36,9 @@ public class MainActivity extends BaseActivity {
     // 通信
     public RequestQueue mRequestQueue;
 
+    /*
+     * 状態管理
+     */
     // http://idios.hatenablog.com/entry/2012/07/07/235137
     enum State {
         INITIAL,
@@ -183,8 +185,10 @@ public class MainActivity extends BaseActivity {
             });
 
         mRequestQueue.add(request);
+        //state = state.accept(MainActivity.this);
+        //state.run(MainActivity.this);
     }
-    
+
     private void registerUser() {
         String url = RensouApi.getPostUrlRegisterUser();
         JSONObject json = RensouApi.makeRegisterUserJson();

@@ -21,7 +21,6 @@ import jp.kyuuki.rensou.android.net.RensouApi;
 import jp.kyuuki.rensou.android.net.VolleyUtils;
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

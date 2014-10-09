@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import jp.kyuuki.rensou.android.Config;
+import jp.kyuuki.rensou.android.common.Logger;
 import jp.kyuuki.rensou.android.model.Rank;
 import jp.kyuuki.rensou.android.model.Rensou;
 import jp.kyuuki.rensou.android.model.User;
@@ -23,6 +24,8 @@ import jp.kyuuki.rensou.android.model.User;
  * - 通信ライブラリには依存したくない。
  */
 public class RensouApi {
+    private static final String TAG = RensouApi.class.getName();
+
     // 書き換えられることがあるけど、ほぼ定数のイメージなので大文字にしておく。
     public static String BASE_URL = Config.API_BASE_URL;
     
@@ -32,8 +35,14 @@ public class RensouApi {
     // 2010-02-27T13:00:00Z がパースできない。 2010-02-27T13:00:00+00:00 と同義っぽいんだけど。
     // http://stackoverflow.com/questions/424522/how-can-i-recognize-the-zulu-time-zone-in-java-dateutils-parsedate
     static FastDateFormat fastDateFormat2 = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    //static FastDateFormat fastDateFormat = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
-    static String patterns[] = { fastDateFormat1.getPattern(),  fastDateFormat2.getPattern() };
+
+    // iOS 版サーバーからミリ秒がやってくるようになったのに対応
+    static FastDateFormat fastDateFormat3 = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+    static String patterns[] = { fastDateFormat1.getPattern(), fastDateFormat2.getPattern(), fastDateFormat3.getPattern() };
+
+    // iOS 版サーバーの部屋対応 (1: 学生ルーム, 2: 社会人ルーム, 3: ガールズルーム, 4: おたくルーム, 5: 秘密の部屋)
+    private final static int ROOM_TYPE = 3;
 
     /*
      * API JSON 仕様
@@ -72,7 +81,7 @@ public class RensouApi {
 
     // GET rensou.json
     public static String getGetUrlLast() {
-        return BASE_URL + "/rensou.json";
+        return BASE_URL + "/rensou.json?room=" + ROOM_TYPE;
     }
 
     // POST rensou.json
@@ -86,6 +95,7 @@ public class RensouApi {
             json.put("theme_id", themeId);
             json.put("keyword", keyword);
             json.put("user_id", user.getId());
+            json.put("room", ROOM_TYPE);
         } catch (JSONException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();
@@ -107,7 +117,7 @@ public class RensouApi {
 
     // GET rensous/ranking
     public static String getGetUrlRensousRanking() {
-        return BASE_URL + "/rensous/ranking";
+        return BASE_URL + "/rensous/ranking?room=" + ROOM_TYPE;
     }
     
     // 現状、レスポンスは連想のリスト
@@ -179,7 +189,7 @@ public class RensouApi {
         try {
             d = DateUtils.parseDate(s, patterns);
         } catch (DateParseException e) {
-            e.printStackTrace();
+            Logger.w(TAG, "parseDate error " + s);
             d = null;
         }
         return d;
