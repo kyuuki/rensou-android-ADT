@@ -21,16 +21,30 @@ import com.google.analytics.tracking.android.EasyTracker;
 
 /**
  * 全画面共通。
+ * 
+ * - ライフサイクルの確認用。
  */
 public abstract class BaseActivity extends FragmentActivity {
     private static final String TAG = BaseActivity.class.getName();
 
+    @Override
+    protected void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Logger.v(TAG, "onCreate(): " + this.hashCode());
+    }
+    
     @Override
     public void onStart() {
         super.onStart();
         Logger.v(TAG, "onStart(): " + this.hashCode());
         EasyTracker.getInstance().activityStart(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Logger.v(TAG, "onResume(): " + this.hashCode());
+    };
 
     @Override
     public void onStop() {

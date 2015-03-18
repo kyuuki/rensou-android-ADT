@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Toast;
 
@@ -38,54 +39,95 @@ public class MainActivity extends BaseActivity {
 
     /*
      * 状態管理
+     * 
+     * - 参考: http://idios.hatenablog.com/entry/2012/07/07/235137
      */
-    // http://idios.hatenablog.com/entry/2012/07/07/235137
     enum State {
-        INITIAL,
+        INITIAL {
+            @Override
+            public void start(MainActivity activity) {
+                activity.getInitialData();
+                transit(activity, GETTING_INITIAL_DATA);
+            }
+        },
+
         GETTING_INITIAL_DATA {
             @Override
-            public void run(MainActivity activity) {
-                activity.getInitialData();
-            }
-            
-            @Override
-            public State accept(MainActivity activity) {
+            public void successGetInitialData(MainActivity activity, InitialData data) {
+                String message = null;
+                String apiBaseUrl = null;
+                if (data != null) {
+                    message = data.getMessege();
+                    apiBaseUrl = data.getApiBaseUrl();
+                }
+
+                // 初期データに API ベース URL が入っていたら、デフォルトを上書き。
+                if (apiBaseUrl != null) {
+                    RensouApi.BASE_URL = apiBaseUrl;
+                }
+
+                if (message != null) {
+                    // お知らせダイアログ表示
+                    InitialDialogFragment dailog = InitialDialogFragment.newInstance(activity.getString(R.string.app_name), message);
+                    dailog.show(activity.getSupportFragmentManager(), "dialog");
+                }
+
                 User user = User.getMyUser(activity);
                 if (user == null) {
-                    // 初回起動時のみ
-                    return State.REGISTORING_USER;
+                    activity.registerUser();
+                    transit(activity, REGISTORING_USER);
                 } else {
-                    return State.READY;
+                    activity.startPostRensouFragment();
+                    transit(activity, READY);
                 }
             }
+
+            @Override
+            public void failureGetInitialData(MainActivity activity) {
+                // 初期データが取得できなくても、何もなかったかのようにふるまう
+                activity.startPostRensouFragment();
+                transit(activity, READY);
+            }
         },
+
         REGISTORING_USER {
             @Override
-            public void run(MainActivity activity) {
-                activity.registerUser();
-            }
-            
-            @Override
-            public State accept(MainActivity activity) {
-                return State.READY;
+            public void successResistorUser(MainActivity activity, User user) {
+                user.saveMyUser(activity);  // 永続化
+
+                activity.startPostRensouFragment();
+                transit(activity, READY);
             }
         },
-        READY {
-            @Override
-            public void run(MainActivity activity) {
-                activity.startPostRensouFragment();
-            }
-        };
-        
-        public void run(MainActivity activity) {
+
+        READY;
+
+        private static void transit(MainActivity activity, State nextState) {
+            Logger.w("STATE", activity.state + " -> " + nextState);
+            activity.state = nextState;
+        }
+
+        public void start(MainActivity activity) {
             throw new IllegalStateException();
         }
-        
-        public State accept(MainActivity activity) {
+
+        public void successGetInitialData(MainActivity activity, InitialData data) {
+            throw new IllegalStateException();
+        }
+
+        public void failureGetInitialData(MainActivity activity) {
+            throw new IllegalStateException();
+        }
+
+        public void successResistorUser(MainActivity activity, User user) {
+            throw new IllegalStateException();
+        }
+
+        public void failureResistorUser(MainActivity activity) {
             throw new IllegalStateException();
         }
     }
-    
+
     private State state = State.INITIAL;
 
     @Override
@@ -108,7 +150,8 @@ public class MainActivity extends BaseActivity {
         // onCreate で作っちゃっていい？null に戻っちゃうことない？
         mRequestQueue = VolleyUtils.getRequestQueue(this);
 
-        if (savedInstanceState == null) {
+        // TODO: これが違う API に行っちゃう原因？
+        //if (savedInstanceState == null) {
             // アプリ起動時のみ
 
             // 静的に XML に書いておくといろいろ不具合が起こるので動的に生成。詳細不明。要調査。
@@ -117,10 +160,15 @@ public class MainActivity extends BaseActivity {
             ft.add(R.id.mainFragment, newFragment);
             ft.commit();
 
-            state = State.GETTING_INITIAL_DATA;
-            state.run(this);
-        }
+            state.start(this);
+        //}
     }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    };
 
     String BUNDLE_KEY_STATE = "STATE";
     
@@ -132,6 +180,8 @@ public class MainActivity extends BaseActivity {
         outState.putInt(BUNDLE_KEY_STATE, state.ordinal());
     };
 
+    // http://d.hatena.ne.jp/junji_furuya0/20111028/1319783435
+    // onRestoreInstanceState()は画面の回転以外では呼ばれない。らしい。
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -139,7 +189,18 @@ public class MainActivity extends BaseActivity {
         int index = savedInstanceState.getInt(BUNDLE_KEY_STATE);
         this.state = State.values()[index];
     };
-    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // 初期データが取得できるまでは何もしない。
+        if (state != State.READY) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // TODO: API 通信の抽象化
     private void getInitialData() {
         String url = Config.INITIAL_DATA_URL;
 
@@ -151,42 +212,21 @@ public class MainActivity extends BaseActivity {
                     Logger.e("HTTP", "body is " + response.toString());
                     
                     InitialData data = InitialData.createInitialData(response);
-                    
-                    String message = null;
-                    String apiBaseUrl = null;
-                    if (data != null) {
-                        message = data.getMessege();
-                        apiBaseUrl = data.getApiBaseUrl();
-                    }
 
-                    // 初期データに API ベース URL が入っていたら、デフォルトを上書き。
-                    if (apiBaseUrl != null) {
-                        RensouApi.BASE_URL = apiBaseUrl;
-                    }
-                    
-                    if (message != null) {
-                        // お知らせダイアログ表示
-                        InitialDialogFragment dailog = InitialDialogFragment.newInstance(MainActivity.this.getString(R.string.app_name), message);
-                        dailog.show(getSupportFragmentManager(), "dialog");  // TODO: 第二引数は何？
-                    } else {
-                        state = state.accept(MainActivity.this);
-                        state.run(MainActivity.this);
-                    }
+                    state.successGetInitialData(MainActivity.this, data);
                 }
             },
 
             new ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    // 初期データが取得できなくても、何もなかったかのようにふるまう
-                    state = state.accept(MainActivity.this);
-                    state.run(MainActivity.this);
+                    Logger.e("HTTP", "error " + error.getMessage());
+
+                    state.failureGetInitialData(MainActivity.this);
                 }
             });
 
         mRequestQueue.add(request);
-        //state = state.accept(MainActivity.this);
-        //state.run(MainActivity.this);
     }
 
     private void registerUser() {
@@ -199,10 +239,7 @@ public class MainActivity extends BaseActivity {
                 public void onResponse(JSONObject response) {
                     Logger.e("HTTP", "body is " + response.toString());
                     User user = RensouApi.json2User(response);
-                    user.saveMyUser(MainActivity.this);  // 永続化
-                    
-                    state = state.accept(MainActivity.this);
-                    state.run(MainActivity.this);
+                    state.successResistorUser(MainActivity.this, user);
                 }
             },
 
@@ -250,9 +287,7 @@ public class MainActivity extends BaseActivity {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity activity = (MainActivity) getActivity();
-                        activity.state = activity.state.accept(activity);
-                        activity.state.run(activity);
+                        // 何もしない。
                     }})
                 .create();  
         }  
