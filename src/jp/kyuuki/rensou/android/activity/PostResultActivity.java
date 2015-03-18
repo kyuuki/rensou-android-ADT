@@ -66,8 +66,12 @@ public class PostResultActivity extends BaseActivity {
         
         return super.onOptionsItemSelected(item);
     }
-
     
+    @Override
+    protected String getLogTag() {
+        return TAG;
+    }
+
     @SuppressLint("NewApi")
     private void setDisplayHomeAsUpEnabled(boolean b) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

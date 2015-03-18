@@ -14,6 +14,7 @@ import android.view.MenuItem;
  * ランキング画面。
  */
 public class RankingActivity extends BaseActivity {
+    private static final String TAG = RankingActivity.class.getName();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,11 @@ public class RankingActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    
+    @Override
+    protected String getLogTag() {
+        return TAG;
+    }
+
     @SuppressLint("NewApi")
     private void setDisplayHomeAsUpEnabled(boolean b) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

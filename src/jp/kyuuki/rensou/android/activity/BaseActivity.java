@@ -30,29 +30,41 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.v(TAG, "onCreate(): " + this.hashCode());
+        LoggerV("onCreate()");
     }
     
     @Override
     public void onStart() {
         super.onStart();
-        Logger.v(TAG, "onStart(): " + this.hashCode());
+        LoggerV("onStart()");
         EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Logger.v(TAG, "onResume(): " + this.hashCode());
+        LoggerV("onResume()");
     };
 
     @Override
     public void onStop() {
         super.onStart();
-        Logger.v(TAG, "onStop(): " + this.hashCode());
+        LoggerV("onStop()");
         EasyTracker.getInstance().activityStop(this);
     }
     
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        LoggerV("onSaveInstanceState()");
+    }
+    
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        LoggerV("onSaveInstanceState()");
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -113,7 +125,16 @@ public abstract class BaseActivity extends FragmentActivity {
         
         return false;
     }
-    
+
+    private void LoggerV(String msg) {
+        Logger.v(getLogTag(), Integer.toHexString(this.hashCode()) + ": " + msg);
+    }
+
+    // 基本的に実際の Activity で上書き
+    protected String getLogTag() {
+        return TAG;
+    }
+
     // http://www.jp-z.jp/changelog/2013-05-02-1.html
     // http://www.kojion.com/blog/android/dialog_fragment/
     public static class AboutDialogFragment extends DialogFragment {

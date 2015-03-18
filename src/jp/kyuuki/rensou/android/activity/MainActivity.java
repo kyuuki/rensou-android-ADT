@@ -33,6 +33,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 //import com.google.ads.AdView;
 
 public class MainActivity extends BaseActivity {
+    private static final String TAG = MainActivity.class.getName();
 
     // 通信
     public RequestQueue mRequestQueue;
@@ -108,22 +109,27 @@ public class MainActivity extends BaseActivity {
         }
 
         public void start(MainActivity activity) {
+            Logger.e("STATE", activity.state.toString());
             throw new IllegalStateException();
         }
 
         public void successGetInitialData(MainActivity activity, InitialData data) {
+            Logger.e("STATE", activity.state.toString());
             throw new IllegalStateException();
         }
 
         public void failureGetInitialData(MainActivity activity) {
+            Logger.e("STATE", activity.state.toString());
             throw new IllegalStateException();
         }
 
         public void successResistorUser(MainActivity activity, User user) {
+            Logger.e("STATE", activity.state.toString());
             throw new IllegalStateException();
         }
 
         public void failureResistorUser(MainActivity activity) {
+            Logger.e("STATE", activity.state.toString());
             throw new IllegalStateException();
         }
     }
@@ -151,17 +157,20 @@ public class MainActivity extends BaseActivity {
         mRequestQueue = VolleyUtils.getRequestQueue(this);
 
         // TODO: これが違う API に行っちゃう原因？
-        //if (savedInstanceState == null) {
+        // 画面回転の時に下の処理を行いたくない。onRestoreInstanceState で状態を無理やり設定もしているので注意。
+        if (savedInstanceState == null) {
             // アプリ起動時のみ
 
-            // 静的に XML に書いておくといろいろ不具合が起こるので動的に生成。詳細不明。要調査。
+            // DummyFragment をレイアウトに記述しておくと、回転時に落ちる。
+            // http://y-anz-m.blogspot.jp/2012/04/android-fragment-fragmenttransaction.html
+            // 完全には理解できていないが「レイアウトから生成する Fragment は FragmentTransaction」に対象にしない。ということらしい。
             Fragment newFragment = new DummyFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.add(R.id.mainFragment, newFragment);
             ft.commit();
 
             state.start(this);
-        //}
+        }
     }
     
     @Override
@@ -200,6 +209,11 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected String getLogTag() {
+        return TAG;
+    }
+    
     // TODO: API 通信の抽象化
     private void getInitialData() {
         String url = Config.INITIAL_DATA_URL;
@@ -255,6 +269,7 @@ public class MainActivity extends BaseActivity {
     }
     
     private void startPostRensouFragment() {
+        // TODO: 初期データ取得中に回転すると、ここで ava.lang.IllegalStateException: Activity has been destroyed とか言われて落ちる。
         Fragment newFragment = new PostRensouFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.mainFragment, newFragment);
